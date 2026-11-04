@@ -53,11 +53,24 @@ Cutting and audio
 - Crossfades on speech: 0.1 s max, or none.
 - Check talking-head segments for slow motion and cover them with real-speed B-roll.
 - Creator audio can have music baked in: cuts then jump the music. Offer voice/music separation.
+- Some "talking heads" arrive already edited (voice-over over lifestyle and demo shots). Then add B-roll only where a shot is weak (far wide, repeated angle); the demo footage already does the illustrating.
 
 Design
 - Load latin-ext font files so č š ž render.
 - Squash/stomp effects must keep proportions; flattening to a line looks like a glitch.
 - CameraMotionBlur needs a solid background inside the blur layer.
+- Luminous hero words: plum shadow layer, wide coral blur, tight glow, then sharp gradient letters on top. The letters themselves never blur at rest.
+- Any wrapper with a CSS transform becomes the positioning box for absolute children: give scene wrappers `position: absolute` or graphics land off-screen in previews.
+- Locked rings/arrows on product details only on tripod shots (check frames at start and end of the beat that the object does not move).
+- Graphics amplify claims: show only authorised wording (e.g. EU 432/2012 vitamin C claim) in callouts; leave unauthorised benefits the creator says in the spoken captions only.
+
+Depth ("text behind the person")
+- Needs the original footage file: Montik exports and media cannot be downloaded from the sandbox (401). Ask the user early to drop the source file into the connected folder.
+- BiRefNet runs out of memory in the 6 GB sandbox; u2net_human_seg (person) + isnet-general-use (held objects) + guided-filter edges works on CPU. Script: `remotion/scripts/depth_matte.py`.
+- Compose so the person covers only the end of one wide letter (a T or O), never the middle of the hero word.
+
+Sourcing
+- Pixabay/Pexels pages and CDNs are blocked from the sandbox shell and WebFetch; Montik `import_media` can still pull a public file URL server-side.
 
 ---
 
@@ -69,4 +82,5 @@ Design
 ---
 
 ## Research log
+- 2026-11-04: Renata KOLAGEN edit: depth/matte, glow-type, product-callout and sourcing lessons added.
 - 2026-11-04: first version. Sources: Skaler hook-rate benchmarks, Segwise on Meta Andromeda, Evolut 2026 top beauty ads report. Lessons from the MicroInfusion (Gabor Nastja) edit.

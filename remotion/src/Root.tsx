@@ -5,6 +5,8 @@ import "./captions/beauty";
 import { CaptionOptions, OPTION_FRAMES } from "./captions/Director";
 import { OVERLAYS } from "./OverlayTests";
 import { Scene, SCENES, Showcase, SHOWCASE_FRAMES } from "./Showcase";
+import { Kolagen } from "./ads/kolagen/Kolagen";
+import { TOTAL_FRAMES as KOL_FRAMES } from "./ads/kolagen/data";
 
 const base = { fps: 30, width: 1080, height: 1920 } as const;
 
@@ -23,6 +25,10 @@ export const RemotionRoot: React.FC = () => (
       <Composition id="CTA" component={Scene.CTA} durationInFrames={SCENES.cta} {...base} />
     </Folder>
     <Composition id="CaptionOptions" component={CaptionOptions} durationInFrames={OPTION_FRAMES(30).reduce((a, b) => a + b, 0)} {...base} />
+    <Folder name="Ads">
+      <Composition id="Kolagen-Overlay" component={Kolagen} durationInFrames={KOL_FRAMES} defaultProps={{ preview: false, depth: false, safe: false }} {...base} />
+      <Composition id="Kolagen-Preview" component={Kolagen} durationInFrames={KOL_FRAMES} defaultProps={{ preview: true, depth: false, safe: true }} {...base} />
+    </Folder>
     <Folder name="Overlays">
       {Object.entries(OVERLAYS).map(([id, o]) => (
         <Composition key={id} id={id} component={o.C} durationInFrames={o.d} {...base} />

@@ -9,7 +9,32 @@ export const C = {
   greenDeep: "#6F8C1F",
   greenDark: "#26330A",
   ink: "#0A0D04",
+  // Extended palette (approved 4 Nov 2026), taken from the packaging and the story's moods.
+  forest: "#1F5A36", // sachet green, depth
+  zest: "#D9E84A", // box lime, energy pops
+  mint: "#E4F0D0", // soft light ground
+  berry: "#E0457B", // box badge pink: offers and urgency only, sparingly
+  midnight: "#10182B", // night and sleep scenes
+  sunrise: "#F4D35E", // morning, the drink
+  paper: "#EFECE6", // editorial ground
 } as const;
+
+/**
+ * Mood sets: each scene picks one, and an ad moves between them
+ * (e.g. night hook, product facts, morning result, offer CTA).
+ * base = background, text = main type, accent = the one hero colour,
+ * onAccent = type on the accent, pop = rare second accent.
+ */
+export type Mood = { base: string; text: string; accent: string; onAccent: string; pop: string };
+export const MOODS = {
+  classic: { base: C.black, text: C.white, accent: C.green, onAccent: C.black, pop: C.zest },
+  night: { base: C.midnight, text: C.white, accent: C.green, onAccent: C.midnight, pop: C.zest },
+  morning: { base: C.sunrise, text: C.forest, accent: C.forest, onAccent: C.sunrise, pop: C.white },
+  product: { base: C.forest, text: C.white, accent: C.zest, onAccent: C.forest, pop: C.green },
+  editorial: { base: C.paper, text: C.black, accent: C.green, onAccent: C.black, pop: C.forest },
+  fresh: { base: C.mint, text: C.forest, accent: C.green, onAccent: C.forest, pop: C.zest },
+  offer: { base: C.black, text: C.white, accent: C.berry, onAccent: C.white, pop: C.green },
+} satisfies Record<string, Mood>;
 
 /**
  * Display face. Set USE_PP_RIGHT_GOTHIC to true after placing your licensed

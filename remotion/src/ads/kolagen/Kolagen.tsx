@@ -407,23 +407,18 @@ const EndCard: React.FC<{ t: number }> = ({ t }) => {
   const a = 25.8;
   if (t < a) return null;
   const shade = ip(t, [a, a + 0.5], [0, 1], E.inOutCubic);
-  const line = ip(t, [26.5, 27.0], [0, 1], E.inOutCubic);
   const bloom = ip(t, [26.3, 26.5, 27.1], [0.7, 1.3, 1], E.inOutCubic);
   const sweep = ip(t, [27.2, 28.0], [-0.4, 1.4], E.inOutCubic);
   return (
     <>
       <AbsoluteFill style={{ opacity: shade, background: "linear-gradient(180deg, rgba(56,39,48,0.62) 0%, rgba(56,39,48,0.5) 28%, rgba(56,39,48,0) 46%)" }} />
-      <div style={{ position: "absolute", left: 0, right: 0, top: 446, textAlign: "center" }}>
+      <div style={{ position: "absolute", left: 0, right: 0, top: 432, textAlign: "center" }}>
         <FadeRise t={t} at={26.0}>
           <div style={ivory(42, 600, BODY, { letterSpacing: "0.01em" })}>Odkrij več na</div>
         </FadeRise>
         <MaskRise t={t} at={26.15} dur={0.45} style={{ display: "inline-block", marginTop: 8 }}>
           <GlowWord text="biostile.si" size={124} bloom={bloom} sweep={sweep} tracking="-0.03em" />
         </MaskRise>
-        <div style={{ height: 2, width: 460 * line, margin: "18px auto 0", background: `linear-gradient(90deg, transparent, ${K.gold}, transparent)` }} />
-        <FadeRise t={t} at={26.6}>
-          <div style={ivory(30, 600, BODY, { marginTop: 14, color: K.rose, letterSpacing: "0.03em" })}>Collagen Powder + Hyaluronic Acid · 30 vrečk</div>
-        </FadeRise>
       </div>
     </>
   );

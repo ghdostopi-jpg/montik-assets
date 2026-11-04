@@ -3,9 +3,9 @@ import { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "../src/lib/brand";
 import "../src/captions/beauty";
-import { CaptionOptions, OPTION_FRAMES } from "../src/captions/Director";
+import { CaptionOptions, OPTION_FRAMES, OPTION_LABELS } from "../src/captions/Director";
 
-const names = ["Stomp: hook", "Hand-drawn highlight: problem", "Cinematic product: reveal", "Luxury editorial: solution", "Dynamic word-by-word: benefits", "Black text boxes: ease of use", "Luxury editorial: close"];
+const names = OPTION_LABELS;
 const lens = OPTION_FRAMES(30);
 const starts = lens.map((_, i) => lens.slice(0, i).reduce((a, b) => a + b, 0));
 const total = lens.reduce((a, b) => a + b, 0);

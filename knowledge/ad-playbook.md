@@ -51,6 +51,8 @@ Cutting and audio
 - Never cut inside a word; check 0.1 s before each kept segment for stray words (a reused take carried a "Ja" into two places).
 - Don't remove short pauses inside one continuous take: the jump reads as a glitch.
 - Crossfades on speech: 0.1 s max, or none.
+- Audible breaths between sentences: the user wants them cut out (review, Nov 2026). Cut the breath, keep ~0.1 s before and after the words, and cover the jump with B-roll.
+- End of the last spoken shot: end it ~0.35 s after the last word, fade its audio, crossfade 0.5-0.6 s into the end card; an abrupt room-tone stop sounds like a glitch.
 - Check talking-head segments for slow motion and cover them with real-speed B-roll.
 - Creator audio can have music baked in: cuts then jump the music. Offer voice/music separation.
 - Some "talking heads" arrive already edited (voice-over over lifestyle and demo shots). Then add B-roll only where a shot is weak (far wide, repeated angle); the demo footage already does the illustrating.
@@ -59,10 +61,14 @@ Design
 - Load latin-ext font files so č š ž render.
 - Squash/stomp effects must keep proportions; flattening to a line looks like a glitch.
 - CameraMotionBlur needs a solid background inside the blur layer.
+- Pop-ups and info cards: entrance 0.5-0.6 s, exit 0.4 s, and at least 2 s fully readable; a claim card with ~17 words needs about 4 s (review, Nov 2026).
+- "Too empty" feedback: every 2-3 s something should change (B-roll, sticker, callout), each tied to a spoken word.
 - Luminous hero words: plum shadow layer, wide coral blur, tight glow, then sharp gradient letters on top. The letters themselves never blur at rest.
 - Any wrapper with a CSS transform becomes the positioning box for absolute children: give scene wrappers `position: absolute` or graphics land off-screen in previews.
 - Locked rings/arrows on product details only on tripod shots (check frames at start and end of the beat that the object does not move).
 - Graphics amplify claims: show only authorised wording (e.g. EU 432/2012 vitamin C claim) in callouts; leave unauthorised benefits the creator says in the spoken captions only.
+
+- Users may delete the EXPORT track or unhide PREVIEW when the editor shows graphics frozen: always re-check the tracks before exporting and tell the user the rule again.
 
 Depth ("text behind the person")
 - Needs the original footage file: Montik exports and media cannot be downloaded from the sandbox (401). Ask the user early to drop the source file into the connected folder.
@@ -82,5 +88,6 @@ Sourcing
 ---
 
 ## Research log
+- 2026-11-04: Renata KOLAGEN review notes: breath cuts, reading time for cards, "too empty" fix, end-card audio.
 - 2026-11-04: Renata KOLAGEN edit: depth/matte, glow-type, product-callout and sourcing lessons added.
 - 2026-11-04: first version. Sources: Skaler hook-rate benchmarks, Segwise on Meta Andromeda, Evolut 2026 top beauty ads report. Lessons from the MicroInfusion (Gabor Nastja) edit.

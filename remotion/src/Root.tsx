@@ -1,6 +1,8 @@
 import React from "react";
 import { Composition, Folder } from "remotion";
 import "./lib/brand";
+import "./captions/beauty";
+import { CaptionOptions, OPTION_FRAMES } from "./captions/Director";
 import { OVERLAYS } from "./OverlayTests";
 import { Scene, SCENES, Showcase, SHOWCASE_FRAMES } from "./Showcase";
 
@@ -20,6 +22,7 @@ export const RemotionRoot: React.FC = () => (
       <Composition id="Callouts" component={Scene.Callouts} durationInFrames={SCENES.callouts} {...base} />
       <Composition id="CTA" component={Scene.CTA} durationInFrames={SCENES.cta} {...base} />
     </Folder>
+    <Composition id="CaptionOptions" component={CaptionOptions} durationInFrames={OPTION_FRAMES(30).reduce((a, b) => a + b, 0)} {...base} />
     <Folder name="Overlays">
       {Object.entries(OVERLAYS).map(([id, o]) => (
         <Composition key={id} id={id} component={o.C} durationInFrames={o.d} {...base} />

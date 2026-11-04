@@ -1,0 +1,12 @@
+# Transcription — needs ONE of AssemblyAI or OpenAI (both installed by default;
+# the bridge script picks whichever API key is set, see SETUP.md).
+assemblyai>=0.30.0
+openai>=1.0.0
+python-dotenv>=1.0.0
+
+# polish_transcript.py's context-aware correction pass (optional, both engines).
+anthropic>=0.30.0
+
+# Alternative: fully local transcription with WhisperX (heavier, no API needed).
+# Uncomment if you'd rather run transcribe.py instead of the cloud bridge.
+# whisperx>=3.1.1

@@ -1,0 +1,40 @@
+# secrets — never commit real keys
+.env
+
+# python
+.venv/
+__pycache__/
+*.pyc
+
+# node (Remotion engines)
+node_modules/
+
+# OS junk
+.DS_Store
+
+# per-project work artifacts and outputs — whole dirs, created fresh per
+# project; nothing inside is meant to be committed. The catch-all below keeps
+# real project dirs (names, .pr_style, STYLE.md, plans) out of the repo
+# entirely — only the projects/ placeholder is tracked.
+projects/*/
+
+# author / personal media — never part of the shipped tool
+assets/author/
+
+# render-job scratch that lands under a Remotion public/ dir
+**/remotion/public/job-*/
+
+# root-level output scratch (rare direct use, kept symmetric with above)
+outputs/*.mp4
+
+# user-supplied media — bring your own (SETUP.md "Assets"). No third-party
+# music, SFX, brand logos, or mascot art ships with this repo; only the
+# directory placeholders are tracked, and the pipeline degrades gracefully
+# when a file is absent (a missing SFX cue is skipped, not an error).
+**/music/*
+assets/sfx/*
+**/assets/logos/*
+**/remotion/public/mascots/*
+**/remotion/public/claude-mascot.png
+
+!**/.gitkeep

@@ -4,7 +4,13 @@
  * Word times: Montik transcript (Slovenian), spelling checked against the audio script.
  */
 export const FPS = 30;
-export const TOTAL = 28.967;
+export const TOTAL = 27.793;
+/**
+ * Breath cuts (review notes, 4 Nov): source 10.80-11.24 and 17.66-18.16 were removed,
+ * the last shot ends at source 26.0. Design times below stay in the pre-cut timeline;
+ * toOld maps the new Montik timeline back to it.
+ */
+export const toOld = (t: number) => (t < 10.4 ? t : t < 16.82 ? t + 0.44 : t + 0.94);
 export const TOTAL_FRAMES = Math.ceil(TOTAL * FPS);
 
 /** First frame of the second shot (hands + box). The hook shot is frames [0, HOOK_CUT). */
@@ -26,7 +32,7 @@ export const PHRASES: Phrase[] = [
   { a: 11.9, b: 13.24, words: [["kosti", 11.99, 12.23, "k"], ["in", 12.35], ["hrustanec,", 12.53, 13.07, "k"]] },
   { a: 13.24, b: 14.42, words: [["hkrati", 13.31], ["pa", 13.67], ["naredim", 13.85], ["nekaj", 14.21, 14.39]] },
   { a: 14.42, b: 15.72, words: [["dobrega", 14.45, 14.75, "k"], ["še", 14.87], ["za", 15.05], ["kožo,", 15.17, 15.47]] },
-  { a: 15.72, b: 17.5, words: [["lase", 15.83], ["in", 16.19], ["nohte.", 16.79, 17.15]] },
+  { a: 15.72, b: 17.26, words: [["lase", 15.83], ["in", 16.19], ["nohte.", 16.79, 17.15]] },
   { a: 17.8, b: 19.04, words: [["Ker", 17.87], ["je", 18.05], ["priprava", 18.23], ["hitra", 18.71, 19.01, "k"]] },
   { a: 19.04, b: 20.2, words: [["in", 19.07], ["okus", 19.31], ["prijeten,", 19.61, 19.97, "k"]] },
   { a: 20.2, b: 21.68, words: [["ga", 20.27], ["brez", 20.45, 20.63, "k"], ["težav", 20.81, 21.05, "k"], ["vključim", 21.23, 21.65]] },

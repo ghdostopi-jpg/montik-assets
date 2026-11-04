@@ -5,7 +5,7 @@ import { E, ip } from "../../lib/anim";
 import { DirBlur } from "../../lib/DirBlur";
 import { BODY, HERO, K, RENATA_THEME } from "../../captions/themes/renata";
 import "../../captions/themes/renata";
-import { HOOK_CUT, PHRASES, STILLS, type CW, type Phrase } from "./data";
+import { HOOK_CUT, PHRASES, STILLS, toOld, type CW, type Phrase } from "./data";
 
 /**
  * "Coral Luminance": overlay for the Renata KOLAGEN edit.
@@ -21,7 +21,7 @@ const useT = () => {
 };
 
 /** Entrance/exit envelope. pin, pout: 0..1. vis false outside [a, b]. */
-const env = (t: number, a: number, b: number, inD = 0.4, outD = 0.3) => ({
+const env = (t: number, a: number, b: number, inD = 0.5, outD = 0.4) => ({
   vis: t >= a && t <= b,
   pin: ip(t, [a, a + inD], [0, 1], E.outQuart),
   pout: ip(t, [b - outD, b], [0, 1], E.inOutCubic),
@@ -88,7 +88,7 @@ const GlowWord: React.FC<{
 const MaskRise: React.FC<{ t: number; at: number; dur?: number; dist?: number; children: React.ReactNode; style?: React.CSSProperties }> = ({
   t,
   at,
-  dur = 0.45,
+  dur = 0.6,
   dist = 1,
   children,
   style,
@@ -124,7 +124,7 @@ const ivory = (size: number, weight = 800, family = HERO, extra: React.CSSProper
   ...extra,
 });
 
-const FadeRise: React.FC<{ t: number; at: number; dur?: number; children: React.ReactNode; style?: React.CSSProperties }> = ({ t, at, dur = 0.4, children, style }) => {
+const FadeRise: React.FC<{ t: number; at: number; dur?: number; children: React.ReactNode; style?: React.CSSProperties }> = ({ t, at, dur = 0.5, children, style }) => {
   const p = ip(t, [at, at + dur], [0, 1], E.outQuart);
   return <div style={{ ...style, opacity: p, transform: `translateY(${(1 - p) * 26}px)`, filter: p < 0.99 ? `blur(${(1 - p) * 6}px)` : undefined }}>{children}</div>;
 };
@@ -259,7 +259,7 @@ const CrestCallout: React.FC<{ t: number }> = ({ t }) => {
 
 const FromWithin: React.FC<{ t: number }> = ({ t }) => {
   const a = 9.64;
-  const b = 10.85;
+  const b = 10.39; // ends at the breath cut (timeline 10.40)
   if (t < a || t > b) return null;
   const { pout } = env(t, a, b, 0.4, 0.28);
   const bloom = ip(t, [9.95, 10.1, 10.5], [0.75, 1.3, 1], E.inOutCubic);
@@ -276,10 +276,10 @@ const FromWithin: React.FC<{ t: number }> = ({ t }) => {
 };
 
 const VitaminC: React.FC<{ t: number }> = ({ t }) => {
-  const a = 11.12;
-  const b = 14.08;
+  const a = 10.89; // timeline 10.45
+  const b = 14.74; // timeline 14.30: 3.85 s to read
   if (t < a || t > b) return null;
-  const { pin, pout } = env(t, a, b, 0.5, 0.3);
+  const { pin, pout } = env(t, a, b, 0.6, 0.4);
   const ringDraw = ip(t, [a + 0.15, a + 0.85], [0, 1], E.inOutCubic);
   const C = 2 * Math.PI * 38;
   return (
@@ -336,10 +336,10 @@ const Sachet: React.FC<{ t: number; at: number }> = ({ t, at }) => {
 };
 
 const OneSachet: React.FC<{ t: number }> = ({ t }) => {
-  const a = 17.95;
-  const b = 19.86;
+  const a = 17.78; // timeline 16.84, right after the second breath cut
+  const b = 19.82; // timeline 18.88, before the close-up
   if (t < a || t > b) return null;
-  const { pout } = env(t, a, b, 0.4, 0.26);
+  const { pout } = env(t, a, b, 0.5, 0.36);
   const bloom = ip(t, [a + 0.2, a + 0.4, a + 0.9], [0.7, 1.25, 0.95], E.inOutCubic);
   return (
     <Exit p={pout} style={{ position: "absolute", left: 70, top: 446 }}>
@@ -348,10 +348,10 @@ const OneSachet: React.FC<{ t: number }> = ({ t }) => {
           <GlowWord text="1" size={230} bloom={bloom} tracking="0" />
         </MaskRise>
         <div>
-          <FadeRise t={t} at={a + 0.15}>
+          <FadeRise t={t} at={a + 0.2}>
             <div style={ivory(70, 800, HERO, { letterSpacing: "-0.02em" })}>vrečka</div>
           </FadeRise>
-          <FadeRise t={t} at={a + 0.27}>
+          <FadeRise t={t} at={a + 0.35}>
             <div style={ivory(70, 800, HERO, { letterSpacing: "-0.02em", color: K.rose })}>na dan</div>
           </FadeRise>
         </div>
@@ -368,7 +368,7 @@ const OneSachet: React.FC<{ t: number }> = ({ t }) => {
 
 const Persist: React.FC<{ t: number }> = ({ t }) => {
   const a = 24.42;
-  const b = 25.98;
+  const b = 25.62; // fades out into the end-card crossfade
   if (t < a || t > b) return null;
   const { pout } = env(t, a, b, 0.4, 0.3);
   const bloom = ip(t, [24.85, 25.05, 25.5], [0.75, 1.35, 1.05], E.inOutCubic);
@@ -404,7 +404,7 @@ const Persist: React.FC<{ t: number }> = ({ t }) => {
 };
 
 const EndCard: React.FC<{ t: number }> = ({ t }) => {
-  const a = 25.8;
+  const a = 25.62;
   if (t < a) return null;
   const shade = ip(t, [a, a + 0.5], [0, 1], E.inOutCubic);
   const bloom = ip(t, [26.3, 26.5, 27.1], [0.7, 1.3, 1], E.inOutCubic);
@@ -421,6 +421,57 @@ const EndCard: React.FC<{ t: number }> = ({ t }) => {
         </MaskRise>
       </div>
     </>
+  );
+};
+
+/* ---------- premium stickers: short Slovenian labels for what she says ---------- */
+
+const SunIcon = () => (
+  <svg width={34} height={34} viewBox="-17 -17 34 34">
+    <circle r={6.5} fill={K.coral} />
+    {Array.from({ length: 8 }).map((_, i) => (
+      <line key={i} x1={0} y1={-10} x2={0} y2={-14.5} stroke={K.coral} strokeWidth={2.6} strokeLinecap="round" transform={`rotate(${i * 45})`} />
+    ))}
+  </svg>
+);
+const CheckIcon = () => (
+  <svg width={34} height={34} viewBox="0 0 34 34">
+    <circle cx={17} cy={17} r={15} fill={K.coral} />
+    <path d="M10 17.5 l4.6 4.6 L24.5 12" fill="none" stroke={K.ivory} strokeWidth={3.4} strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const Sticker: React.FC<{ t: number; a: number; b: number; text: string; icon: "sun" | "check"; x: number; y: number; rot: number }> = ({ t, a, b, text, icon, x, y, rot }) => {
+  if (t < a || t > b) return null;
+  const pin = ip(t, [a, a + 0.5], [0, 1], E.backOut);
+  const op = ip(t, [a, a + 0.25], [0, 1]) * (1 - ip(t, [b - 0.4, b], [0, 1], E.inOutCubic));
+  const sway = Math.sin((t - a) * 1.8) * 1.2;
+  return (
+    <div
+      style={{
+        position: "absolute",
+        left: x,
+        top: y,
+        opacity: op,
+        transform: `rotate(${rot + sway}deg) scale(${0.82 + 0.18 * pin})`,
+        transformOrigin: "0% 50%",
+        display: "flex",
+        alignItems: "center",
+        gap: 12,
+        padding: "14px 24px 14px 16px",
+        borderRadius: 999,
+        background: K.ivory,
+        boxShadow: "0 12px 34px rgba(56,39,48,0.38), 0 0 0 2px rgba(215,168,117,0.7), 0 0 26px rgba(255,134,109,0.35)",
+        fontFamily: BODY,
+        fontWeight: 600,
+        fontSize: 36,
+        color: K.plum,
+        whiteSpace: "nowrap",
+      }}
+    >
+      {icon === "sun" ? <SunIcon /> : <CheckIcon />}
+      {text}
+    </div>
   );
 };
 
@@ -507,7 +558,8 @@ const DepthCutout: React.FC<{ f: number }> = ({ f }) => {
 export type KolagenProps = { preview?: boolean; depth?: boolean; safe?: boolean };
 
 export const Kolagen: React.FC<KolagenProps> = ({ preview = false, depth = false, safe = false }) => {
-  const { f, t } = useT();
+  const { f, t: tn } = useT();
+  const t = toOld(tn); // Montik timeline (after the breath cuts) -> design timeline
   const still = preview ? [...STILLS].reverse().find(([s]) => t >= s)?.[1] : undefined;
   return (
     <AbsoluteFill>
@@ -526,6 +578,9 @@ export const Kolagen: React.FC<KolagenProps> = ({ preview = false, depth = false
       <VitaminC t={t} />
       <OneSachet t={t} />
       <Persist t={t} />
+      <Sticker t={t} a={3.4} b={5.95} text="moja dnevna rutina" icon="sun" x={70} y={452} rot={-4} />
+      <Sticker t={t} a={20.39} b={22.14} text="brez težav" icon="check" x={600} y={1186} rot={-3} />
+      <Sticker t={t} a={22.54} b={24.3} text="vsak dan" icon="check" x={640} y={1186} rot={3} />
       <EndCard t={t} />
       <Captions t={t} />
       {safe ? <div style={{ position: "absolute", left: 0, right: 0, top: 420, height: 1080, outline: "3px dashed rgba(0,255,255,0.8)" }} /> : null}

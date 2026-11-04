@@ -1,0 +1,5 @@
+node_modules
+out
+web/app.js
+public/bg/*.jpg
+public/fonts/PPRightGothic*

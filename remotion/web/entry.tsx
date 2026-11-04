@@ -1,5 +1,5 @@
 import { Player, PlayerRef } from "@remotion/player";
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { Showcase, SCENES, SHOWCASE_FRAMES } from "../src/Showcase";
 

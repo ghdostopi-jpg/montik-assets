@@ -5,11 +5,13 @@ import "./captions/beauty";
 import { CaptionOptions, OPTION_FRAMES } from "./captions/Director";
 import { OVERLAYS } from "./OverlayTests";
 import { Scene, SCENES, Showcase, SHOWCASE_FRAMES } from "./Showcase";
+import { ItAd } from "./biostile/ItAd";
 
 const base = { fps: 30, width: 1080, height: 1920 } as const;
 
 export const RemotionRoot: React.FC = () => (
   <>
+    <Composition id="ItAd" component={ItAd as any} fps={60} width={1080} height={1920} durationInFrames={60} defaultProps={{ video: "", words: [], keywords: [], yMap: [], hide: [], callouts: [], frames: 60 } as any} calculateMetadata={({ props }: any) => ({ durationInFrames: props.frames })} />
     <Composition id="Showcase" component={Showcase} durationInFrames={SHOWCASE_FRAMES} {...base} />
     <Folder name="Components">
       <Composition id="EditorialHook" component={Scene.Hook} durationInFrames={SCENES.hook} {...base} />

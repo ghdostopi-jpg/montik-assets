@@ -17,5 +17,7 @@ else
     pkill -f chrome-headless-shell || true; echo "file '$TMP/p$i.mp4'" >> "$TMP/list.txt"; i=$((i+1)); done
   ffmpeg -v error -y -f concat -safe 0 -i "$TMP/list.txt" -c copy "$TMP/v.mp4"
 fi
-ffmpeg -v error -y -i "$TMP/v.mp4" -i "$MIX" -map 0:v -map 1:a -c:v copy -c:a aac -b:a 256k -ar 48000 -shortest -movflags +faststart "$OUT"
+# picture length rules: pad the mix with silence if it is shorter (-shortest cut 9 frames off AD_06)
+VD=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$TMP/v.mp4")
+ffmpeg -v error -y -i "$TMP/v.mp4" -i "$MIX" -map 0:v -map 1:a -c:v copy -af apad -c:a aac -b:a 256k -ar 48000 -t "$VD" -movflags +faststart "$OUT"
 ffprobe -v error -show_entries stream=width,height,avg_frame_rate:format=duration -of compact "$OUT"

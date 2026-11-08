@@ -100,3 +100,57 @@ Verdict: solid foundation. Keep: natural influencer, attractive AFTER look in ev
 
 ### Do not assume
 A more expensive model is not automatically better: Creatify 720p and OmniHuman 1080p cost about the same per short line; Kling 3.0 Pro 5 s (10 PW) was enough for application; Seedance 1080p would have cost several times more for the same shot.
+## AD_06 (Livia, 50.9 s, 6 pairs) - 8 Nov 2026
+
+### Budget
+| | Cap | Used |
+|---|---|---|
+| PromptWise | 30 | 26.4 (4.0 of it unused: portrait B edit started before Rene picked D) |
+| ElevenLabs | 12,000 | 10,438 |
+
+### What the credits bought
+| Item | PW | EL | In final? |
+|---|---|---|---|
+| 4 portraits (Realism Pro) | 0.4 | | D chosen |
+| AFTER hero 4K of portrait B | 4 | | no - creator changed while it ran |
+| AFTER hero 4K of portrait D (also V1 start frame) | 4 | | yes |
+| BEFORE 4K = edit of the AFTER hero (same framing) | 4 | | yes - source of all 6 BEFORE crops |
+| V2 / V3 start frames 2K | 4 | | yes |
+| V2 application, Kling 3.0 Pro 5 s | 10 | | first 3.6 s only |
+| TTS: V1 x2, V3 x2, VO body x2 (eleven_v4, Chiara) | | 1,440 | one take each |
+| Scribe word timings x3 | | 0 | free |
+| V1 talking head 3.8 s (OmniHuman 1080p) | | 3,646 | yes |
+| V3 talking head 2.8 s (OmniHuman 1080p) | | 2,637 | yes |
+| V2b neck press 4 s (Kling 3 Pro via ElevenLabs, no audio) | | 2,715 | 2.1 s used |
+| Music, edit, captions, graphics, QC, 60 fps | 0 | 0 | local |
+
+### Workflow optimizations that saved time or credits without losing quality
+1. **6 pairs from ONE 4K pair** (AFTER hero + BEFORE edit of it): all close-ups are crops of the same aligned pair + high-frequency transplant. 8 PW for 12 images (AD_04: 28 PW). Texture ratio 0.87-0.96. Limit: 4K NB Pro output is upscaled from ~1K detail, so close-up crops are soft at 1:1 - present them as cards (1008x821) or panels, not full-bleed macros wider than ~1.3x.
+2. **Downloads as one JSON bundle per tab** (fetch -> base64 -> one Blob download): one download instead of 3-6. Downloads land in ~/Downloads 1-6 min late; wait, do not re-trigger (re-triggering created duplicates).
+3. **Scribe transcription is free** (0 EL) and gives word times for captions: no local Whisper needed (HuggingFace is blocked anyway).
+4. **Use estimate_only on every ElevenLabs node** (free): it caught a 5,090 EL Kling call; 4 s, no audio cut it to 2,715.
+5. **Parallel work**: TTS + start frames + B-roll trims + music + Remotion layout + 60 fps interpolation (background job) while generations ran.
+6. **One builder script** (build06.py) writes props, timeline (shots, talk ranges, voice placement), captions text and runs the VO cuts: picture, mix and QC share one clock.
+7. Draft preview + QC before the last clip arrived (placeholder clip) caught layout issues early.
+
+### Mistakes / extra spend and the rule that prevents them
+| What happened | Cost | Rule |
+|---|---|---|
+| Hero edit started on portrait B before the creator was confirmed | 4 PW | Show the 4 portraits and wait for the pick when the user is present, or pick and only then generate. Never start the 4K hero in the same turn as showing portraits. |
+| Kling application clip: serum streak appears on the cheek after 3.7 s, neck press never happens | 2,715 EL for a neck insert | Plan application as two short clips (cheek 4 s, neck 4 s) from the start; prompt "no drips or streaks"; check the last 1.5 s of every AI clip before planning the edit. |
+| V3 clip (2.76 s) shorter than its planned slot (3.3 s) | 0 | Plan talk slots from the audio length: slot = audio + 0.4 s hold (tpad clone). |
+| minterpolate drops ~0.1 s at the end of each clip | 0 | Always add tpad=stop_mode=clone:stop_duration=0.5 after minterpolate. |
+| Captions in the lower band covered hands/product on application shots | 0 | Captions move to the top band (y 300) on every B-roll and application shot automatically (Ad06 Captions: high = video shot that is not V1/V3). |
+| QC flagged "cta" from the plan's own "cta": false key | 0 | Fixed in beauty_qc.py. |
+
+### AD_06 creative choices (do not reuse; use as reference for originality)
+- Hook: social moment + twist ("Tutti mi chiedevano: «Sei stanca?» E non lo ero.") with a callback ending ("Adesso nessuno me lo chiede più."). Hook line set as a serif title, not a caption.
+- Identity "Lamplight": warm ink, lamp amber, ivory; Instrument Sans 600 captions on a dark plate (0.84) with amber active word; Instrument Serif italic labels ("prima" / "dopo").
+- Comparisons: full face = BEFORE folds into a picture-in-picture card over the AFTER; close-ups = stacked cards with an iris reveal of the AFTER. Not used before: Daylight Lab (AD_02), slider / wipe / halves (AD_04).
+- Music "Lamplight": 96 BPM FM electric piano, A minor -> C major lift at the reveal (local synthesis).
+
+### Next-ad checklist additions
+- Lock creator choice before any 4K call.
+- Two application clips (cheek, neck), 4 s each, or one 5 s Kling with an end frame showing the neck press.
+- Every talk slot = audio length + 0.4 s.
+- Budget estimate for a 50 s ad with this method: ~22 PW + ~7,700 EL if nothing is redone.

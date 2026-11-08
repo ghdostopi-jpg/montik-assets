@@ -17,6 +17,7 @@ Creative brief → Script → Storyboard → Character assets → Video generati
 | Mix | `pipeline/mix.py` | voice-led, music side-chain ducked, −14 LUFS / −1 dBTP, SFX sparse and quiet |
 | Preview / final | `pipeline/render.sh preview|final` | final renders in 700-frame chunks (one 1500-frame render was OOM-killed) |
 | QC | `qc/beauty_qc.py` | subtitle legibility (size, contrast), comparison timing, packaging count, mouth strips, face distortion, identity drift, lip-sync lag, fake-60, interpolation spikes, flashes, loud whooshes, subtitles (OCR), safe zones, CTA words, garbled brand text |
+| Transfers | `pipeline/browser_bundle.js` | many generated files -> one download from the Browser pane |
 | QC (generic) | `qc/qa_video_vd.py` | from win4r/video-director (MIT): hook/phone/beat sheets, cuts, freezes, loudness |
 
 ## timeline.json (minimal)

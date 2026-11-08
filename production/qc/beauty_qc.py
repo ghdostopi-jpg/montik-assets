@@ -298,7 +298,7 @@ def main():
             low = float(np.percentile(con, 20)) if con else 0
             ok = hgt >= 44 and low >= 3.0 and seen >= 0.6
             r.add("PASS" if ok else "WARN", "legibility", f"caption x-height+ascender ~{hgt:.0f}px of 1920 (target >= 44), 20th-percentile contrast {low:.1f}:1 (target >= 3.0), OCR could read {seen*100:.0f}% of script words (target >= 60%; low = thin/low-contrast captions)")
-    texts = " ".join(o["word"] for o in ocr_lines).lower() + " " + (open(a.script).read().lower() if a.script else "") + " " + json.dumps(plan).lower()
+    texts = " ".join(o["word"] for o in ocr_lines).lower() + " " + (open(a.script).read().lower() if a.script else "") + " " + json.dumps({k: v for k, v in plan.items() if k != "cta"}).lower()  # the plan's own "cta" flag is not a CTA
     hits = sorted({m.group(0) for p_ in CTA_WORDS for m in re.finditer(p_, texts)})
     allow_cta = bool(plan.get("cta"))
     r.add("PASS" if not hits or allow_cta else "FAIL", "cta", f"CTA words found: {hits}" if hits else "no CTA words in OCR text, script or plan")

@@ -16,7 +16,7 @@ Creative brief → Script → Storyboard → Character assets → Video generati
 | Shot layer | `remotion/AdShots.tsx` | overlap crossfades, no dip-to-white, uniform-scale push on stills |
 | Mix | `pipeline/mix.py` | voice-led, music side-chain ducked, −14 LUFS / −1 dBTP, SFX sparse and quiet |
 | Preview / final | `pipeline/render.sh preview|final` | final renders in 700-frame chunks (one 1500-frame render was OOM-killed) |
-| QC | `qc/beauty_qc.py` | face distortion, identity drift, lip-sync lag, fake-60, interpolation spikes, flashes, loud whooshes, subtitles (OCR), safe zones, CTA words, garbled brand text |
+| QC | `qc/beauty_qc.py` | subtitle legibility (size, contrast), comparison timing, packaging count, mouth strips, face distortion, identity drift, lip-sync lag, fake-60, interpolation spikes, flashes, loud whooshes, subtitles (OCR), safe zones, CTA words, garbled brand text |
 | QC (generic) | `qc/qa_video_vd.py` | from win4r/video-director (MIT): hook/phone/beat sheets, cuts, freezes, loudness |
 
 ## timeline.json (minimal)
@@ -42,3 +42,5 @@ Numbers catch broken, not bad.
 
 Models: `models/face_detection_yunet_2023mar.onnx` (OpenCV Zoo YuNet, MIT).
 Container needs: ffmpeg, Python with opencv ≥4.8 (FaceDetectorYN), numpy, librosa, pytesseract + tesseract `ita`, Node 22, Remotion 4.0.540.
+
+Read `LEARNINGS.md` before costing or planning a new ad: it holds the AD_04 review, quality gates and the brief lock checklist.

@@ -266,7 +266,16 @@ def main():
                 for i, w in enumerate(d["text"]):
                     w = w.strip()
                     if len(w) < 2 or float(d["conf"][i]) < 70: continue
-                    ocr_lines.append(dict(t=round(float(t), 2), word=w, y=(d["top"][i] + d["height"][i] / 2) / g.shape[0], x=d["left"][i] / g.shape[1]))
+                    o = dict(t=round(float(t), 2), word=w, y=(d["top"][i] + d["height"][i] / 2) / g.shape[0], x=d["left"][i] / g.shape[1], h=d["height"][i] / g.shape[0])
+                    x0, y0, bw, bh = d["left"][i], d["top"][i], d["width"][i], d["height"][i]
+                    box = g[max(0, y0 - 4):y0 + bh + 4, max(0, x0 - 4):x0 + bw + 4]
+                    if box.size > 50 and w.isalpha():
+                        thr, _ = cv2.threshold(box, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+                        lo_, hi_ = box[box <= thr], box[box > thr]
+                        if lo_.size and hi_.size:
+                            Y = lambda v: ((v / 255.0) ** 2.2) * 0.9 + 0.05   # approx. relative luminance + flare
+                            o["contrast"] = float((Y(np.median(hi_)) + 0.05) / (Y(np.median(lo_)) + 0.05))
+                    ocr_lines.append(o)
         except Exception as ex:
             r.add("WARN", "ocr", f"OCR unavailable: {ex}")
     if ocr_lines:
@@ -281,6 +290,14 @@ def main():
             odd = sorted({g for g in got if g not in vocab and len(g) > 3 and max((SequenceMatcher(None, g, v).ratio() for v in vocab), default=0) > 0.75})
             missing = sorted({w for w in vocab if len(w) > 3 and w not in set(got)})
             r.add("PASS" if not odd else "WARN", "subtitles", f"OCR caption words not in script (possible typos): {odd[:15]}; script words never seen on screen: {missing[:15]}")
+            # legibility: size, contrast and how much of the script OCR can read at all
+            cap = [o for o in ocr_lines if lo <= o["y"] <= hi and len(o["word"]) > 3 and o["word"].isalpha()]
+            seen = len(vocab & set(got)) / max(1, len([w for w in vocab if len(w) > 3]))
+            hgt = float(np.median([o["h"] for o in cap])) * 1920 if cap else 0
+            con = [o["contrast"] for o in cap if "contrast" in o]
+            low = float(np.percentile(con, 20)) if con else 0
+            ok = hgt >= 44 and low >= 3.0 and seen >= 0.6
+            r.add("PASS" if ok else "WARN", "legibility", f"caption x-height+ascender ~{hgt:.0f}px of 1920 (target >= 44), 20th-percentile contrast {low:.1f}:1 (target >= 3.0), OCR could read {seen*100:.0f}% of script words (target >= 60%; low = thin/low-contrast captions)")
     texts = " ".join(o["word"] for o in ocr_lines).lower() + " " + (open(a.script).read().lower() if a.script else "") + " " + json.dumps(plan).lower()
     hits = sorted({m.group(0) for p_ in CTA_WORDS for m in re.finditer(p_, texts)})
     allow_cta = bool(plan.get("cta"))
@@ -293,6 +310,21 @@ def main():
         return any(0.72 < SequenceMatcher(None, n, b).ratio() < 1 for b in bn)
     garbled = sorted({o["word"] for o in ocr_lines if odd(o["word"])})
     r.add("PASS" if not garbled else "WARN", "product", f"tokens close to brand words but misspelled (garbled AI label?): {garbled[:12]}" if garbled else "no misspelled brand tokens found by OCR (still check product_sheet)")
+
+    # ---- plan checks: comparison screen time, packaging repetition
+    shots = plan.get("shots", [])
+    if shots:
+        pairs = [x for x in shots if x.get("kind") == "scene" and str(x.get("id", "")).startswith("p_")]
+        short = [(x["id"], round(x["to"] - x["from"], 2)) for x in pairs if x["to"] - x["from"] < 2.0]
+        total = sum(x["to"] - x["from"] for x in shots if x.get("kind") == "scene")
+        r.add("PASS" if pairs and not short else "WARN", "comparisons", f"{len(pairs)} before/after pairs, {total:.1f} s of comparison footage; pairs under 2.0 s: {short}")
+        pack = [x for x in shots if x.get("packaging")]
+        if pack: r.add("PASS" if len(pack) <= 2 else "WARN", "packaging", f"{len(pack)} packaging shots (target <= 2)")
+    # mouth strips for an eye check of lip-sync at 15 fps
+    for k, (t0, t1) in enumerate(talk):
+        ims = [grab(a.video, float(t), 360) for t in np.arange(t0 + 0.1, min(t1, t0 + 2.1), 1 / 15)]
+        ims = [im[int(im.shape[0] * 0.30):int(im.shape[0] * 0.52), int(im.shape[1] * 0.2):int(im.shape[1] * 0.8)] for im in ims if im is not None]
+        if ims: sheet(ims, [f"{t0 + 0.1 + i / 15:.2f}" for i in range(len(ims))], out / f"mouth_strip_{k}.jpg", cols=10, w=150)
 
     # ---- evidence: 1 fps sheet
     sheet([grab(a.video, t, 360) for t in np.arange(0.5, info["dur"], 1.0)], [f"{t:.1f}s" for t in np.arange(0.5, info["dur"], 1.0)], out / "contact_1fps.jpg", cols=7, w=180)

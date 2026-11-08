@@ -17,7 +17,7 @@ const eo = Easing.bezier(0.16, 1, 0.3, 1), eio = Easing.bezier(0.65, 0, 0.35, 1)
 const ip = (f: number, i: number[], o: number[], e = eo) => interpolate(f, i, o, { easing: e, extrapolateLeft: "clamp", extrapolateRight: "clamp" });
 const GRADE = "contrast(1.02) saturate(1.03)";
 export type Wd = [string, number, number];
-type Cap = { from: number; to: number; words: Wd[] };
+type Cap = { from: number; to: number; words: Wd[]; top?: number };
 export type Ad06Props = { shots: Shot[]; captions: Cap[]; frames: number; captionsOn?: boolean; captionStyle?: "A" | "B" | "C" };
 
 const Pic: React.FC<{ src: string; z?: number; style?: React.CSSProperties }> = ({ src, z = 1, style }) => (
@@ -87,7 +87,7 @@ const Cards: (area: string, word?: string) => React.FC<{ len: number }> = (area,
 const SCENES: Record<string, React.FC<{ len: number }>> = {
   macro_forehead: Macro("V_forehead_BEFORE.jpg"), macro_eyes: Macro("V_eyes_BEFORE.jpg"), macro_cheek: Macro("V_cheek_BEFORE.jpg"),
   before_full: Macro("F_full_BEFORE.jpg"), p_full: PFull,
-  p_forehead: Cards("forehead"), p_eyes: Cards("eyes"), p_cheek: Cards("cheek"), p_mouth: Cards("mouth"), p_neck: Cards("neck", "e il collo"),
+  p_forehead: Cards("forehead"), p_eyes: Cards("eyes"), p_cheek: Cards("cheek"), p_mouth: Cards("mouth"), p_neck: Cards("neck"),
 };
 
 // ---------- captions ----------
@@ -117,8 +117,8 @@ const Captions: React.FC<{ caps: Cap[]; shots: Shot[]; st: "A" | "B" | "C" }> = 
   }
   const lines = split(c.words);
   // product / hands sit in the lower band on B-roll and application shots: captions move to the top band there
-  const high = sh && sh.kind === "video" && !/V1|V3/.test(sh.src);
-  const top = stacked ? TOP + CH + GAP / 2 - (lines.length === 2 ? 74 : 40) : high ? 300 : 1160 - (lines.length === 2 ? 74 : 40);
+  // v2 (Rene): one caption line for the whole ad, just below the middle (centre y ~1090); stacked cards keep their middle band
+  const top = stacked ? TOP + CH + GAP / 2 - (lines.length === 2 ? 74 : 40) : c.top !== undefined ? c.top : 1090 - (lines.length === 2 ? 74 : 40);
   const on = (w: Wd) => t >= w[1] - 0.02 && t < w[2] + 0.12;
   const box: React.CSSProperties = st === "A" ? { padding: "12px 30px 16px", borderRadius: 22, background: "rgba(24,19,16,0.84)" }
     : st === "C" ? { padding: "10px 26px 14px", borderRadius: 14, background: "rgba(242,180,90,0.94)" } : { padding: "0 10px" };

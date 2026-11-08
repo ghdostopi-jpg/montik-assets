@@ -154,3 +154,9 @@ A more expensive model is not automatically better: Creatify 720p and OmniHuman 
 - Two application clips (cheek, neck), 4 s each, or one 5 s Kling with an end frame showing the neck press.
 - Every talk slot = audio length + 0.4 s.
 - Budget estimate for a 50 s ad with this method: ~22 PW + ~7,700 EL if nothing is redone.
+
+### Caption placement rule (Rene, 8 Nov 2026 - applies to every ad)
+- Default: just below the middle of the frame (caption centre y ~1090 of 1920).
+- If that band covers a face: move the caption above the face; always inside the safe area (top >= 290 px, bottom <= 1248 px).
+- Automated: render a captions-off preview, then `python3 production/pipeline/caption_place.py nocap.mp4 props.json` writes a `top` per caption (YuNet landmarks: forehead..chin; a face must be under >= 3 of 5 samples of the caption).
+- Pauses: no silence between voice lines longer than ~1.5 s (Rene flagged 2.6-2.8 s gaps in AD_06 v1).

@@ -196,8 +196,10 @@ def main():
                 crops.append((t, im[y0:int(y + h * 1.15), x0:int(x + w * 1.15)].copy()))
             # mouth ROI brightness profile for lip-sync (dark mouth opening)
             mw = np.linalg.norm(mr - ml); cx, cy = mc
-            roi = cv2.cvtColor(im[int(cy - mw * 0.45):int(cy + mw * 0.55), int(cx - mw * 0.6):int(cx + mw * 0.6)], cv2.COLOR_BGR2GRAY) if mw > 8 else None
-            if roi is not None and roi.size: mouth[round(t, 2)] = float((roi < np.percentile(roi, 20) + 8).mean())
+            y0_, y1_ = max(0, int(cy - mw * 0.45)), min(FH, int(cy + mw * 0.55)); x0_, x1_ = max(0, int(cx - mw * 0.6)), min(FW, int(cx + mw * 0.6))
+            if mw > 8 and y1_ - y0_ > 4 and x1_ - x0_ > 4:
+                roi = cv2.cvtColor(np.ascontiguousarray(im[y0_:y1_, x0_:x1_]), cv2.COLOR_BGR2GRAY)
+                mouth[round(t, 2)] = float((roi < np.percentile(roi, 20) + 8).mean())
         issues = []; per_shot = []
         for s0, s1 in shots:
             rows = [q for q in face_rows if s0 + 0.15 <= q["t"] < s1 - 0.15]

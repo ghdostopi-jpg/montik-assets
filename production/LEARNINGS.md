@@ -160,3 +160,4 @@ A more expensive model is not automatically better: Creatify 720p and OmniHuman 
 - If that band covers a face: move the caption above the face; always inside the safe area (top >= 290 px, bottom <= 1248 px).
 - Automated: render a captions-off preview, then `python3 production/pipeline/caption_place.py nocap.mp4 props.json` writes a `top` per caption (YuNet landmarks: forehead..chin; a face must be under >= 3 of 5 samples of the caption).
 - Pauses: no silence between voice lines longer than ~1.5 s (Rene flagged 2.6-2.8 s gaps in AD_06 v1).
+- VO cuts: never cut at Scribe word times (they run 0.1-0.4 s late; AD_06 v2 cut "settimana..." into the next "la"). Measure silences (< -50 dB for >= 60 ms) and cut in the middle of one; check every segment head/tail is below -50 dB.

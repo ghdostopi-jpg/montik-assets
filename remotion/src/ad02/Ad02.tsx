@@ -29,7 +29,7 @@ const ClipLayer: React.FC<{ c: Clip }> = ({ c }) => {
   const frame = useCurrentFrame(); const { fps } = useVideoConfig();
   const len = (c.to - c.from) * fps;
   const z = interpolate(frame, [0, len], [c.z0 ?? 1, c.z1 ?? 1.04]);
-  const inF = ip(frame, [0, 7], [0, 1], E.outQuart);
+  const inF = ip(frame, [0, 6], [0, 1], E.inOutCubic);
   const style: React.CSSProperties = { width: "100%", height: "100%", objectFit: "cover", filter: GRADE, transform: `translate(${c.ox ?? 0}px, ${c.oy ?? 0}px) scale(${z})` };
   return (
     <AbsoluteFill style={{ opacity: c.from === 0 ? 1 : inF }}>
@@ -119,7 +119,7 @@ const NoDrag: React.FC<{ len: number }> = ({ len }) => {
   const f = useCurrentFrame();
   const a = ip(f, [0, 16], [0, 1], E.outExpo); const strike = ip(f, [16, 34], [0, 1], E.inOutQuint); const out = ip(f, [len - 8, len], [1, 0], E.inQuart);
   return (
-    <div style={{ position: "absolute", top: 392, left: 70, opacity: a * out, display: "flex", alignItems: "center", gap: 16, ...glass, borderRadius: 30, padding: "10px 24px" }}>
+    <div style={{ position: "absolute", top: 300, left: 70, opacity: a * out, display: "flex", alignItems: "center", gap: 16, ...glass, borderRadius: 30, padding: "10px 24px" }}>
       <svg width="64" height="28" viewBox="0 0 64 28"><path d="M4 14 H54 M44 5 L56 14 L44 23" stroke={INK} strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round" /><line x1="8" y1="25" x2={8 + 48 * strike} y2={25 - 22 * strike} stroke={AMBER} strokeWidth="4" strokeLinecap="round" /></svg>
       <div style={{ fontFamily: F, fontWeight: 500, fontSize: 30, color: INK }}>senza trascinare</div>
     </div>
@@ -297,22 +297,16 @@ export const Ad02: React.FC<Ad02Props> = ({ words, clips }) => {
   const L = (a: number, b: number) => Math.round((b - a) * fps);
   return (
     <AbsoluteFill style={{ backgroundColor: IVORY }}>
-      {clips.map((c, i) => <Sequence key={i} from={Math.round(c.from * fps)} durationInFrames={Math.round((c.to - c.from) * fps)}><ClipLayer c={c} /></Sequence>)}
+      {clips.map((c, i) => <Sequence key={i} from={Math.round(c.from * fps)} durationInFrames={Math.round((c.to - c.from) * fps) + (i < clips.length - 1 ? 6 : 0)}><ClipLayer c={c} /></Sequence>)}
       {S(19.40, 23.30, <Split len={L(19.40, 23.30)} />)}
       {S(0, 2.92, <Hook />)}
-      {S(2.92, 6.10, <><Section n="01" label="la pelle al naturale" len={L(2.92, 6.10)} /><Loupe src="skin.png" len={L(2.92, 6.10)} z0={1.0} z1={1.07} /></>)}
-      {S(6.10, 12.40, <Section n="02" label="cosa c'è nel set" len={L(6.10, 12.40)} />)}
       {S(9.35, 10.80, <><Chip text="acido ialuronico" x={70} y={820} len={L(9.35, 10.80)} /></>)}
       {S(9.75, 10.80, <Chip text="peptidi" x={70} y={920} len={L(9.75, 10.80)} />)}
       {S(10.80, 12.40, <Blueprint len={L(10.80, 12.40)} />)}
-      {S(11.30, 12.40, <Chip text="microaghi" x={70} y={560} len={L(11.30, 12.40)} />)}
       {S(9.35, 10.80, <Particles len={L(9.35, 10.80)} />)}
       {S(12.40, 14.20, <Particles len={L(12.40, 14.20)} n={14} seed={9} />)}
       {S(13.95, 14.45, <LiquidWipe len={L(13.95, 14.45)} />)}
-      {S(12.40, 15.30, <Section n="03" label="la routine" len={L(12.40, 15.30)} />)}
-      {S(15.30, 19.40, <Steps len={L(15.30, 19.40)} />)}
-      {S(17.40, 19.40, <NoDrag len={L(17.40, 19.40)} />)}
-      {S(25.62, 27.20, <EndCard len={L(25.62, 27.20)} />)}
+      {S(16.20, 19.40, <NoDrag len={L(16.20, 19.40)} />)}
       <Captions words={words} hide={[[19.40, 19.42]]} />
     </AbsoluteFill>
   );

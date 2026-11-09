@@ -2,7 +2,8 @@
 Y 420-1500 / X 100-945 (1080x1920 coords). usage: python3 safezone_scan.py text.mp4 [fps_of_file]"""
 import cv2, sys, numpy as np, json
 cap = cv2.VideoCapture(sys.argv[1]); fps = cap.get(5); W = cap.get(3); k = 1080 / W
-X0, X1, Y0, Y1 = 100, 945, 420, 1500
+import os
+X0, X1, Y0, Y1 = 100, 945, 420, int(os.environ.get("SAFE_Y1", 1500))  # SAFE_Y1=1470 when a brief caps it lower
 bad, i, worst = [], 0, [1920, 0, 1080, 0]
 while True:
     ok, fr = cap.read()

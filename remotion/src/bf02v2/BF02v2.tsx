@@ -15,11 +15,11 @@ export const COPY = {
   k4a: "+ ŠE DODATNIH −25%!", k4b: "Kupon za naslednji nakup ob naročilu nad 100€.",
   k5a: "BLACK FRIDAY SAMO DO KONCA NOVEMBRA!", k5b: "POHITITE PO SVOJA DARILA!",
 };
-const W = (t: string, a: number, b?: number) => t.split(" ").slice(a, b).join(" ");
+export const W = (t: string, a: number, b?: number) => t.split(" ").slice(a, b).join(" ");
 
-const WHITE = "#FFFFFF", MINT = "#EAF4EE", GREEN = "#0F6B3E", GREEN2 = "#0A4F2D", LEAF = "#2E9B5E", RED = "#E3192C", RED2 = "#B5101F", INK = "#1E2723";
-const FONT = "BF02v2 Poppins";
-const fontsReady = (() => {
+export const WHITE = "#FFFFFF", MINT = "#EAF4EE", GREEN = "#0F6B3E", GREEN2 = "#0A4F2D", LEAF = "#2E9B5E", RED = "#E3192C", RED2 = "#B5101F", INK = "#1E2723";
+export const FONT = "BF02v2 Poppins";
+export const fontsReady = (() => {
   if (typeof document === "undefined") return Promise.resolve();
   const faces: Promise<any>[] = [];
   for (const sub of ["latin", "latin-ext"]) for (const w of ["500", "600", "700", "800", "900"])
@@ -27,10 +27,10 @@ const fontsReady = (() => {
   return Promise.all(faces);
 })();
 
-const eo = Easing.bezier(0.16, 1, 0.3, 1), eio = Easing.bezier(0.65, 0, 0.35, 1);
-const ip = (f: number, i: number[], o: number[], e = eo) => interpolate(f, i, o, { easing: e, extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+export const eo = Easing.bezier(0.16, 1, 0.3, 1), eio = Easing.bezier(0.65, 0, 0.35, 1);
+export const ip = (f: number, i: number[], o: number[], e = eo) => interpolate(f, i, o, { easing: e, extrapolateLeft: "clamp", extrapolateRight: "clamp" });
 const FPS = 60;
-const S = (s: number) => Math.round(s * FPS);
+export const S = (s: number) => Math.round(s * FPS);
 
 // ---------- timeline (seconds; VO takeA placed at 0, cuts sit on measured VO silences) ----------
 export const T = {
@@ -44,7 +44,7 @@ const AR: Record<string, number> = { A_collagen: 1.1118, A_magnesium: 1.5225, A_
 export const GROUP_A = ["A_q10", "A_slimis", "A_collagen", "A_microshapper", "A_magnesium", "A_nutrilegs"];
 export const GROUP_B = ["B_sunrise", "B_triple", "B_hairo", "B_gel", "B_sunkissed", "B_celuline"];
 
-const Bow: React.FC<{ size: number; style?: React.CSSProperties }> = ({ size, style }) => (
+export const Bow: React.FC<{ size: number; style?: React.CSSProperties }> = ({ size, style }) => (
   <svg width={size} height={size * 0.78} viewBox="0 0 100 78" style={style}>
     <path d="M50 34 C 32 6, 4 4, 6 26 C 8 44, 34 44, 50 36 Z" fill={RED} stroke={WHITE} strokeWidth={4} strokeLinejoin="round" />
     <path d="M50 34 C 68 6, 96 4, 94 26 C 92 44, 66 44, 50 36 Z" fill={RED} stroke={WHITE} strokeWidth={4} strokeLinejoin="round" />
@@ -55,7 +55,7 @@ const Bow: React.FC<{ size: number; style?: React.CSSProperties }> = ({ size, st
 );
 
 // die-cut sticker: pops in (spring), then floats; gifts always wear the bow
-const Stk: React.FC<{ id: string; cx: number; by: number; box: [number, number]; at: number; rot?: number; lift?: number; ring?: number; float?: number }> = ({ id, cx, by, box, at, rot = 0, lift = 0, ring = 0, float = 1 }) => {
+export const Stk: React.FC<{ id: string; cx: number; by: number; box: [number, number]; at: number; rot?: number; lift?: number; ring?: number; float?: number }> = ({ id, cx, by, box, at, rot = 0, lift = 0, ring = 0, float = 1 }) => {
   const f = useCurrentFrame(); const { fps } = useVideoConfig();
   const ar = AR[id]; let h = box[1], w = h * ar; if (w > box[0]) { w = box[0]; h = w / ar; }
   const sp = spring({ frame: f - S(at), fps, config: { damping: 11, stiffness: 170, mass: 0.8 } });
@@ -72,7 +72,7 @@ const Stk: React.FC<{ id: string; cx: number; by: number; box: [number, number];
 };
 
 // lifestyle photo card (GROUP A only): white frame, drops onto a pile
-const Card: React.FC<{ src: string; cx: number; cy: number; size: number; at: number; rot: number; out?: number }> = ({ src, cx, cy, size, at, rot, out = 1e9 }) => {
+export const Card: React.FC<{ src: string; cx: number; cy: number; size: number; at: number; rot: number; out?: number }> = ({ src, cx, cy, size, at, rot, out = 1e9 }) => {
   const f = useCurrentFrame(); const { fps } = useVideoConfig();
   const sp = spring({ frame: f - S(at), fps, config: { damping: 14, stiffness: 140 } });
   const o = ip(f, [S(out), S(out) + 10], [1, 0]);
@@ -85,11 +85,11 @@ const Card: React.FC<{ src: string; cx: number; cy: number; size: number; at: nu
   );
 };
 
-const H: React.FC<{ children: React.ReactNode; size: number; color?: string; style?: React.CSSProperties }> = ({ children, size, color = INK, style }) => (
+export const H: React.FC<{ children: React.ReactNode; size: number; color?: string; style?: React.CSSProperties }> = ({ children, size, color = INK, style }) => (
   <div style={{ fontFamily: FONT, fontWeight: 900, fontSize: size, lineHeight: 1.0, letterSpacing: -1, color, textAlign: "center", fontVariantNumeric: "lining-nums", ...style }}>{children}</div>
 );
 // word-by-word slam for headlines
-const Slam: React.FC<{ text: string; at: number; size: number; color?: string; top: number; gap?: number; style?: React.CSSProperties }> = ({ text, at, size, color = INK, top, gap = 0.09, style }) => {
+export const Slam: React.FC<{ text: string; at: number; size: number; color?: string; top: number; gap?: number; style?: React.CSSProperties }> = ({ text, at, size, color = INK, top, gap = 0.09, style }) => {
   const f = useCurrentFrame(); const { fps } = useVideoConfig();
   return (
     <div style={{ position: "absolute", left: 100, right: 135, top, display: "flex", flexWrap: "wrap", justifyContent: "center", columnGap: size * 0.26, ...style }}>
@@ -103,7 +103,7 @@ const Slam: React.FC<{ text: string; at: number; size: number; color?: string; t
 };
 
 // confetti strips (green/red), drifting - background energy
-const Confetti: React.FC<{ seed?: number; n?: number; dark?: boolean }> = ({ seed = 1, n = 22, dark = false }) => {
+export const Confetti: React.FC<{ seed?: number; n?: number; dark?: boolean }> = ({ seed = 1, n = 22, dark = false }) => {
   const f = useCurrentFrame();
   const r = (i: number) => { const x = Math.sin(i * 12.9898 + seed * 78.233) * 43758.5453; return x - Math.floor(x); };
   return (<AbsoluteFill>
@@ -117,7 +117,7 @@ const Confetti: React.FC<{ seed?: number; n?: number; dark?: boolean }> = ({ see
 };
 
 // scene wipe: green + red diagonal bars sweep through (0.4 s), centred on the cut
-const Wipe: React.FC<{ at: number }> = ({ at }) => {
+export const Wipe: React.FC<{ at: number }> = ({ at }) => {
   const f = useCurrentFrame(); const p = ip(f, [S(at) - 12, S(at) + 12], [0, 1], eio);
   if (p <= 0 || p >= 1) return null;
   return (<AbsoluteFill style={{ pointerEvents: "none" }}>
@@ -127,7 +127,7 @@ const Wipe: React.FC<{ at: number }> = ({ at }) => {
   </AbsoluteFill>);
 };
 
-const Pill: React.FC<{ children: React.ReactNode; bg?: string; color?: string; style?: React.CSSProperties }> = ({ children, bg = RED, color = WHITE, style }) => (
+export const Pill: React.FC<{ children: React.ReactNode; bg?: string; color?: string; style?: React.CSSProperties }> = ({ children, bg = RED, color = WHITE, style }) => (
   <div style={{ display: "inline-block", background: bg, color, fontFamily: FONT, fontWeight: 900, borderRadius: 999, padding: "14px 36px", boxShadow: "0 14px 28px rgba(30,39,35,0.25)", ...style }}>{children}</div>
 );
 
@@ -166,7 +166,7 @@ const K1a: React.FC = () => {
 };
 
 // K1b: "+ BREZPLAČNA DARILA" -> GROUP B (authentic Sunrise gift photo, wrapped with a ribbon)
-const K1b: React.FC = () => {
+export const K1b: React.FC = () => {
   const f = useCurrentFrame(); const { fps } = useVideoConfig();
   const sp = spring({ frame: f, fps, config: { damping: 13, stiffness: 150 } });
   const rb = ip(f, [6, 26], [0, 1]);
@@ -191,7 +191,7 @@ const K1b: React.FC = () => {
 };
 
 // full-bleed B-roll (GROUP B gift footage only)
-const Broll: React.FC<{ src: string; rate?: number; startFrom?: number; zoom?: [number, number]; dur: number }> = ({ src, rate = 1, startFrom = 0, zoom = [1.0, 1.06], dur }) => {
+export const Broll: React.FC<{ src: string; rate?: number; startFrom?: number; zoom?: [number, number]; dur: number }> = ({ src, rate = 1, startFrom = 0, zoom = [1.0, 1.06], dur }) => {
   const f = useCurrentFrame();
   return (<AbsoluteFill style={{ overflow: "hidden", background: INK }}>
     <OffthreadVideo src={staticFile(`bf02v2/v/${src}`)} muted playbackRate={rate} startFrom={startFrom}
@@ -200,7 +200,7 @@ const Broll: React.FC<{ src: string; rate?: number; startFrom?: number; zoom?: [
 };
 
 // K1q: the question over a gift B-roll (Celuline pumped into a palm)
-const K1q: React.FC = () => {
+export const K1q: React.FC = () => {
   const f = useCurrentFrame(); const { fps } = useVideoConfig(); const dur = T.k2a - T.k1q;
   const sp = spring({ frame: f - 4, fps, config: { damping: 14, stiffness: 150 } });
   const lines = [W(COPY.k1q, 0, 4), W(COPY.k1q, 4, 7), W(COPY.k1q, 7, 11)];
@@ -257,7 +257,7 @@ const K2b: React.FC = () => {
 };
 
 // K2c: "in še izberite svoja brezplačna darila." -> GROUP B gift B-roll (Hair.O)
-const K2c: React.FC = () => {
+export const K2c: React.FC = () => {
   const f = useCurrentFrame(); const { fps } = useVideoConfig(); const dur = T.k3 - T.k2c;
   const sp = spring({ frame: f - 3, fps, config: { damping: 13, stiffness: 160 } });
   const tx = W(COPY.k2b, 8);
@@ -274,13 +274,13 @@ const K2c: React.FC = () => {
 };
 
 // K3: "MI PODARIMO, VI IZBERETE!" + tiers -> GROUP B gift stickers, n gifts chosen per tier
-const K3: React.FC = () => {
+export const K3: React.FC = () => {
   const f = useCurrentFrame(); const { fps } = useVideoConfig(); const t0 = T.k3;
   const tiers = [T.tier1, T.tier2, T.tier3].map((x) => x - t0);
   const n = tiers.filter((x) => f >= S(x)).length; // gifts chosen so far
   const gifts: [string, number, number, [number, number], number][] = [
     ["B_sunrise", 250, 1215, [230, 170], -3], ["B_triple", 540, 1215, [110, 200], 2], ["B_hairo", 830, 1215, [70, 200], 4],
-    ["B_gel", 250, 1475, [120, 200], -2], ["B_sunkissed", 540, 1475, [70, 200], 3], ["B_celuline", 830, 1475, [80, 200], -3]];
+    ["B_gel", 250, 1462, [120, 190], -2], ["B_sunkissed", 540, 1462, [70, 190], 3], ["B_celuline", 830, 1462, [80, 190], -3]];
   const pick = [0, 4, 1]; // the order in which gifts get chosen (1, then 2, then 3)
   return (<AbsoluteFill style={{ background: `linear-gradient(180deg, ${MINT} 0%, ${WHITE} 45%, ${MINT} 100%)` }}>
     <Confetti seed={5} n={12} />

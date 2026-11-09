@@ -12,6 +12,36 @@ Rules for this file:
 
 ## 1. What makes ads perform (outside research)
 
+### Winning ad blueprints (pick one per concept)
+Survival data means the ad ran long, not proven sales. Copy structures, not health claims: every claim still needs EU approval.
+- **Real demo (skincare, longest-running, ~293 days avg):** creator states a specific problem → real-time demo on own skin → immediate result → light CTA or testimonial overlay. Youthforia, Naturium, Hey Bud. [Evolut, 2026](https://evolutagency.com/2026-top-beauty-ads-intelligence-report/)
+- **Clinical meets cool (~225 days avg):** claim on screen → expert snippet → product and ingredient callouts → review or before/after → strong CTA last. TULA, Typology, Dr. Dennis Gross. (same source)
+- **Supplement 30 s arc:** hook 0–3 s → problem 3–6 s → product as an easy routine step 6–12 s → proof and result 12–20 s → offer and CTA, final 2–3 s. Supergut, AG1. [Evolut, 500 supplement ads](https://evolutagency.com/we-analyzed-500-top-supplement-ads/)
+- **Science explainer:** a hook line plus micro-animations of the mechanism, with research built into the story. Seed. (same source)
+- **Founder mechanism:** founder names problem → explains why it persists → demo → customers confirm → CTA. Icy Bear Dental. [MHI, 2026](https://mhigrowthengine.com/blog/dtc-winning-ad-anatomy/)
+- **Collagen/shake library:** formats include demo, testimonial, listicle, podcast chat, split screen, sticky-note reviews, price-comparison whiteboard, animated ingredient stats mid-ad, flavour montage before CTA. [The Collagen Co., Runneth library (vendor)](https://runneth.com/library/the-collagen-co)
+- **Length:** in 523 long-running Meta ads, beauty and supplement problem/solution ads ran 30–60 s, and 20–30 s survived worst in every niche. [Brandsearch, updated Nov 2026 (vendor)](https://brandsearch.co/blog/winning-meta-ad-patterns-2026)
+- **Hook type by category:** supplements 52 % authority hooks, founder-led in 67 % of video winners; beauty 38 % pain-point; questions weakest overall (8 %). (same source)
+- **Beauty "Learn More" CTAs ran longer than "Shop Now".** Static winners use three panels: concern, application, result. (same source)
+
+### Animation and text structures
+- **Cuts and clutter:** eye tracking on 2,520 views of 42 ads: shorter scenes raised attention, and visual complexity hurt attention with a delay. So cut often, but keep each frame to one idea. Public-service ads, not product ads. [Wals et al., J. Academy of Marketing Science, 2026](https://researchportal.bath.ac.uk/en/publications/the-dynamic-effects-of-visual-complexity-and-scene-cuts-on-viewer/)
+- **Single-claim hold:** one whole claim per frame in open space (Apple). Use for the hero benefit. [Moonb, 2026](https://www.moonb.io/blog/kinetic-typography)
+- **Accumulating cards:** each card builds on the last; size or weight changes only on words that earn it (Spotify Wrapped). Use for ingredient lists and "3 reasons". (same source)
+- **Evidence build:** lines stack in sequence on a typing sound (NYT). Use for reviews and study proof. (same source)
+- **Edit-locked callouts:** text changes on cuts or action beats, one spec per hold (GoPro). Use for B-roll and product details. (same source)
+- **Voice-locked reveal:** text appears on the vocal cue, one treatment throughout. This is our caption default. (same source)
+- **Openers from top ads:** prop covers product then peels away, reverse-motion drop into the hand, critical comment overlaid then answered, creator talking to themselves across three screens. 63 % of top auction ads have text in frame 1 (Keevx via Segwise). [Segwise (vendor)](https://segwise.ai/blog/anatomy-top-performing-video-ad-frame-by-frame)
+
+### AI animation and editing with Claude
+- **Claude Motion (Oct 2026, beta):** text, chart, shape and image animation with MP4 export, on Team and Enterprise plans only. No realistic footage or people, so it suits end cards and explainers, not UGC. [Techotick, Nov 2026](https://www.techotick.com/articles/2026/11/how-to-create-a-video-with-claude-motion-and-remotion/)
+- **Motion vs. Remotion:** Motion is one quick export; Remotion gives editable scenes, data-driven copy and repeatable renders, so it stays our route for variants. Official skills: `npx remotion skills add`. (same source)
+- **Prompt pattern:** one detailed first brief (length, style, scenes, mood, brand assets), then 3–4 one-change notes. Drafts often have overlaps or elements leaving the frame. [How-To Geek, Nov 2026](https://www.howtogeek.com/claude-can-create-motion-graphics-now-heres-how-easy-it-is/)
+- **Self-check loop:** render a contact sheet of frames, score it, fix the worst problem, re-render (Rob Sobers, self-reported). Add to our render-and-verify step. [Motion Design News, Nov 2026](https://blog.mean.ceo/motion-design-news-november-2026/)
+- **Morph explainer:** one shape morphing through 8–12 states; useful for a mechanism such as ingredient → skin layer. Anecdotal. (same source)
+- **AI product shots:** no single best model. Veo 3.1 locks first and last frame and takes 3 reference images, good for ending on a packshot; Kling 3.0 up to 15 s; Seedance 2.5 up to 30 s, commercial terms unclear. Sora is shut down. Specs from makers, Oct 2026. [Izoard](https://izoard.be/en/blog/ai-video/ai-video-tools-compared/)
+- **Toolkit:** MIT list of Claude video skills, including a project template with FFmpeg presets and brand profiles. [Claude-Code-Video-Toolkit](https://github.com/wilwaldon/Claude-Code-Video-Toolkit)
+
 ### Metrics to judge a cut (Meta and TikTok, 2026)
 - **Hook rate** = 3-second plays ÷ impressions (TikTok: 2-second views). Meta: under 20 % needs work, 25–35 % competitive, 35 %+ elite. TikTok runs about 5 points higher. [Skaler, 2026 (vendor)](https://skaler.app/blog/hook-rate-benchmarks-2026)
 - **Hold rate** = ThruPlays ÷ 3-second plays. Under 40 % means a weak middle; aim for 45 %+ before scaling spend. (same source)
@@ -104,6 +134,10 @@ Sourcing
 - A light-CTA end card vs. the current button end card.
 - Branding timing: same body, (a) brand named by second 5 and shown lightly through the ad vs. (b) end-card logo only. Keep frame 0 on the creator's face in both.
 - One emoji-accented caption look vs. the clean caption identity, as a separate concept. The emoji uplift is correlational and our default is no emoji, so judge by hold rate and purchases.
+- 45 s "real demo" cut vs. a 25 s cut of the same footage, to test whether 20–30 s really underperforms for us.
+- Comment-answer opener: creator's face at frame 0, a sceptical comment pops up, she answers it, then the demo.
+- Ingredient mechanism as one morphing shape instead of separate cards, using only authorised claim wording.
+- Accumulating cards for proof beats vs. our single pop-up cards.
 - `blurSlide()` as the B-roll transition and `tear()` as a one-off reveal on a before/after or claim beat; compare with current cuts.
 - AI check before export: list any AI voice, AI B-roll or retouching in the project, and label it where the rules above apply. Never use AI to change skin or results in a skincare demo.
 
@@ -116,6 +150,7 @@ Sourcing
 ---
 
 ## Research log
+- 2026-11-09: refocused on user request: winning-ad blueprints, animation and text structures, AI animation and Claude editing.
 - 2026-11-09: weekly research. Added Meta/Toluna short-form study, Andromeda Oct 2026 post, EU AI Act Art. 50 ad guidance, CJEU botanical ruling, TikTok health policy updates, Remotion v4.0.523, Elements, Remocn. Digital Fairness Act text not yet available.
 - 2026-11-04: Renata KOLAGEN review notes: breath cuts, reading time for cards, "too empty" fix, end-card audio.
 - 2026-11-04: Renata KOLAGEN edit: depth/matte, glow-type, product-callout and sourcing lessons added.

@@ -1,3 +1,14 @@
+# RENE AI production learnings
+
+## TEXT SAFE ZONE - every video, from 9 Nov 2026 on (Rene's instruction, overrides older numbers below)
+- Every text element - captions, headlines, labels (prima/dopo), offer conditions, disclaimers, prices, the CTA - sits inside the
+  centre 1080x1080 square of a 1080x1920 frame: **Y 420-1500** (420 px free at the top and at the bottom). Side margins as the brief says
+  (BF brief: X 100-945; otherwise keep >= 60 px).
+- Applies to the whole animation (entrances, overshoot, emoji, strokes), not only the resting frame.
+- Check it by measurement, not by eye: render a text-only QC pass (images/video/svg/backgrounds hidden) and run
+  `pipeline/safezone_scan.py text.mp4` - it lists every frame where a glyph leaves the zone. `caption_place.py` uses the same bounds.
+- Note: Meta's own guardrail puts its bottom UI line at y 1248; the 1500 limit is Rene's call, keep lower captions as high as the shot allows.
+
 # RENE AI - production learnings
 
 Updated 8 Nov 2026 after AD_02 and AD_04 (Giulia). Keep this file next to the production system and read it before costing a new ad.
@@ -157,7 +168,7 @@ A more expensive model is not automatically better: Creatify 720p and OmniHuman 
 
 ### Caption placement rule (Rene, 8 Nov 2026 - applies to every ad)
 - Default: just below the middle of the frame (caption centre y ~1090 of 1920).
-- If that band covers a face: move the caption above the face; always inside the safe area (top >= 290 px, bottom <= 1248 px).
+- If that band covers a face: move the caption above the face; always inside the text safe zone (top >= 420 px, bottom <= 1500 px; see the rule at the top).
 - Automated: render a captions-off preview, then `python3 production/pipeline/caption_place.py nocap.mp4 props.json` writes a `top` per caption (YuNet landmarks: forehead..chin; a face must be under >= 3 of 5 samples of the caption).
 - Pauses: no silence between voice lines longer than ~1.5 s (Rene flagged 2.6-2.8 s gaps in AD_06 v1).
 - VO cuts: never cut at Scribe word times (they run 0.1-0.4 s late; AD_06 v2 cut "settimana..." into the next "la"). Measure silences (< -50 dB for >= 60 ms) and cut in the middle of one; check every segment head/tail is below -50 dB.

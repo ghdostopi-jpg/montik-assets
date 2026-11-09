@@ -39,7 +39,7 @@ const Macro: (src: string) => React.FC<{ len: number }> = (src) => ({ len }) => 
   const f = useCurrentFrame();
   return (<AbsoluteFill style={{ background: INK }}>
     <Pic src={src} z={interpolate(f, [0, len], [1.0, 1.05])} />
-    <Label text="prima" a={ip(f, [6, 22], [0, 1])} style={{ left: 48, top: 300 }} />
+    <Label text="prima" a={ip(f, [6, 22], [0, 1])} style={{ left: 48, top: 440 }} />
   </AbsoluteFill>);
 };
 // ---------- reveal 1: full face, BEFORE folds into a picture-in-picture card ----------
@@ -47,7 +47,7 @@ const PFull: React.FC<{ len: number }> = ({ len }) => {
   const f = useCurrentFrame();
   const k = ip(f, [54, 96], [0, 1], eio);              // 0 = BEFORE full frame, 1 = card
   const s = 1 - k * (1 - 0.34);                         // uniform scale only
-  const cx = 1080 - 40 - (1080 * 0.34) / 2, cy = 300 + (1920 * 0.34) / 2;
+  const cx = 1080 - 40 - (1080 * 0.34) / 2, cy = 440 + (1920 * 0.34) / 2;  // text safe zone: everything >= Y 420
   const tx = k * (cx - 540), ty = k * (cy - 960);
   const z = interpolate(f, [0, len], [1.0, 1.035]);
   return (<AbsoluteFill style={{ background: INK }}>
@@ -56,10 +56,10 @@ const PFull: React.FC<{ len: number }> = ({ len }) => {
       borderRadius: (k * 24) / s, overflow: "hidden", boxShadow: k > 0 ? `0 ${30 * k / s}px ${80 * k / s}px rgba(0,0,0,${0.45 * k})` : "none", outline: `${(k * 6) / s}px solid rgba(255,244,228,${0.95 * k})` }}>
       <Pic src="F_full_BEFORE.jpg" />
     </div>
-    <Label text="prima" a={ip(f, [6, 20], [0, 1]) * (1 - ip(f, [50, 60], [0, 1]))} style={{ left: 48, top: 300 }} />
-    <Label text="prima" a={ip(f, [96, 110], [0, 1])} style={{ left: cx - 100, top: 300 + 1920 * 0.34 + 18 }} />
-    <Label text="dopo" a={ip(f, [100, 116], [0, 1])} style={{ left: 48, top: 300 }} />
-    <Note a={ip(f, [100, 120], [0, 1])} />
+    <Label text="prima" a={ip(f, [6, 20], [0, 1]) * (1 - ip(f, [50, 60], [0, 1]))} style={{ left: 48, top: 440 }} />
+    <Label text="prima" a={ip(f, [96, 110], [0, 1])} style={{ left: cx - 100, top: 440 + 1920 * 0.34 + 18 }} />
+    <Label text="dopo" a={ip(f, [100, 116], [0, 1])} style={{ left: 48, top: 440 }} />
+    <Note a={ip(f, [100, 120], [0, 1])} top={1400} />
   </AbsoluteFill>);
 };
 // ---------- reveal 2-6: stacked cards, AFTER opens with an iris from its centre ----------
@@ -110,7 +110,7 @@ const Captions: React.FC<{ caps: Cap[]; shots: Shot[]; st: "A" | "B" | "C" }> = 
   const stacked = sh && sh.kind === "scene" && sh.id.startsWith("p_") && sh.id !== "p_full";
   const lf = (t - (c.from - 0.04)) * fps; const a = ip(lf, [0, 7], [0, 1]);
   if (isHook(c)) {
-    return (<div style={{ position: "absolute", left: 0, right: 0, top: 330, display: "flex", justifyContent: "center", opacity: a }}>
+    return (<div style={{ position: "absolute", left: 0, right: 0, top: 440, display: "flex", justifyContent: "center", opacity: a }}>
       <div style={{ padding: "10px 44px 22px", borderRadius: 28, background: "rgba(28,23,20,0.70)", fontFamily: SERIF, fontStyle: "italic", fontSize: 128, lineHeight: 1.05, color: IVORY, transform: `scale(${ip(lf, [0, 12], [0.94, 1])})` }}>
         {c.words.map((w) => w[0]).join(" ")}
       </div></div>);

@@ -1,6 +1,6 @@
 """Caption placement rule (Rene, 8 Nov 2026): captions sit just below the middle of the frame (centre y ~1090).
 If that band would cover a face, move the caption above the face; always inside the 9:16 safe area
-(top >= 14 % = 269 px, bottom <= 65 % = 1248 px). Faces are detected (YuNet) on a captions-off render.
+(TEXT SAFE ZONE, Rene 9 Nov 2026, all videos: the centre 1080x1080 square, top >= 420 px, bottom <= 1500 px). Faces are detected (YuNet) on a captions-off render.
 Usage: python3 caption_place.py nocap.mp4 props.json  (writes "top" per caption into props.json)"""
 import cv2, json, sys
 import numpy as np
@@ -8,7 +8,7 @@ VID, PROPS = sys.argv[1], sys.argv[2]
 p = json.load(open(PROPS))
 cap = cv2.VideoCapture(VID); W = int(cap.get(3)); k = 1080 / W
 det = cv2.FaceDetectorYN.create("/home/claude/montik-assets/production/models/face_detection_yunet_2023mar.onnx", "", (W, int(cap.get(4))), 0.6)
-SAFE_TOP, SAFE_BOT, MID = 290, 1248, 1090
+SAFE_TOP, SAFE_BOT, MID = 420, 1500, 1090
 
 def faces_at(t):
     cap.set(cv2.CAP_PROP_POS_MSEC, t * 1000); ok, fr = cap.read()

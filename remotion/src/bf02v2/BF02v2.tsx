@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill, Img, OffthreadVideo, Sequence, staticFile, useCurrentFrame, useVideoConfig, interpolate, Easing, spring, delayRender, continueRender } from "remotion";
 
+// TEXT SAFE ZONE (Rene, 9 Nov 2026, all videos): every text sits inside the centre 1080x1080 square, Y 420-1500 (X 100-945 here).
 // BF Video 02 v2 - "UGC sticker" direction (Rene, 9 Nov 2026): white + Biostile green + sale red, charcoal for contrast only.
 // GROUP A (regular, discounted) = lifestyle photo cards + plain white die-cut stickers, green plinth.
 // GROUP B (the six free gifts)   = gift B-rolls + die-cut stickers that always carry a red ribbon bow.
@@ -137,30 +138,30 @@ const K1a: React.FC = () => {
   const pop = spring({ frame: f - S(T.k1pop - t0), fps, config: { damping: 9, stiffness: 160 } });
   const hookOut = ip(f, [S(T.k1pop - t0) - 8, S(T.k1pop - t0)], [1, 0]);
   const cards: [string, number, number, number, number][] = [
-    ["A_life_magnesium3.jpg", 540, 1090, -5, 0.00], ["A_life_collagen.jpg", 520, 1080, 6, 0.45], ["A_life_microshapper3.jpg", 560, 1100, -3, 0.95],
-    ["A_life_q10.jpg", 530, 1085, 4, 1.55], ["A_life_slimis.jpg", 545, 1095, -6, 2.25], ["A_life_magnesium5.jpg", 535, 1090, 3, 3.00]];
+    ["A_life_magnesium3.jpg", 540, 1190, -5, 0.00], ["A_life_collagen.jpg", 520, 1180, 6, 0.45], ["A_life_microshapper3.jpg", 560, 1200, -3, 0.95],
+    ["A_life_q10.jpg", 530, 1185, 4, 1.55], ["A_life_slimis.jpg", 545, 1195, -6, 2.25], ["A_life_magnesium5.jpg", 535, 1190, 3, 3.00]];
   return (<AbsoluteFill style={{ background: `radial-gradient(90% 60% at 50% 55%, ${WHITE} 0%, ${MINT} 100%)` }}>
     <Confetti seed={3} n={18} />
-    {cards.map(([s, x, y, r, a], i) => <Card key={i} src={s} cx={x} cy={y} size={600} at={a} rot={r} />)}
+    {cards.map(([s, x, y, r, a], i) => <Card key={i} src={s} cx={x} cy={y} size={520} at={a} rot={r} />)}
     {/* hook headline */}
     <div style={{ opacity: hookOut }}>
-      <Slam text={W(COPY.k1a, 0, 1)} at={0.0} size={150} top={236} />
-      <Slam text={W(COPY.k1a, 1, 2)} at={0.14} size={150} top={386} />
-      <Slam text={W(COPY.k1a, 2)} at={0.42} size={150} color={RED} top={536} />
+      <Slam text={W(COPY.k1a, 0, 1)} at={0.0} size={140} top={432} />
+      <Slam text={W(COPY.k1a, 1, 2)} at={0.14} size={140} top={572} />
+      <Slam text={W(COPY.k1a, 2)} at={0.42} size={140} color={RED} top={712} />
     </div>
     {/* -60% */}
     {f >= S(T.k1pop - t0) - 2 ? <>
-      <Slam text={W(COPY.k1b, 0, 3)} at={T.k1pop - t0} size={74} color={GREEN} top={240} gap={0.07} />
-      <div style={{ position: "absolute", left: 100, right: 135, top: 318, display: "flex", justifyContent: "center" }}>
+      <Slam text={W(COPY.k1b, 0, 3)} at={T.k1pop - t0} size={74} color={GREEN} top={436} gap={0.07} />
+      <div style={{ position: "absolute", left: 100, right: 135, top: 520, display: "flex", justifyContent: "center" }}>
         <div style={{ transform: `scale(${0.3 + 0.7 * pop}) rotate(${-5 + (1 - pop) * 20}deg)`, opacity: pop > 0.02 ? 1 : 0 }}>
-          <H size={250} color={RED} style={{ WebkitTextStroke: `10px ${WHITE}`, paintOrder: "stroke fill", filter: "drop-shadow(0 16px 20px rgba(181,16,31,0.35))", letterSpacing: -6 }}>{W(COPY.k1b, 3)}</H>
+          <H size={230} color={RED} style={{ WebkitTextStroke: `10px ${WHITE}`, paintOrder: "stroke fill", filter: "drop-shadow(0 16px 20px rgba(181,16,31,0.35))", letterSpacing: -6 }}>{W(COPY.k1b, 3)}</H>
         </div>
       </div>
     </> : null}
     {/* regular products pop around the pile */}
-    <Stk id="A_q10" cx={215} by={1440} box={[200, 330]} at={2.55} rot={-8} />
-    <Stk id="A_collagen" cx={850} by={1430} box={[230, 230]} at={2.85} rot={7} />
-    <Stk id="A_nutrilegs" cx={850} by={960} box={[110, 330]} at={3.25} rot={9} />
+    <Stk id="A_q10" cx={215} by={1470} box={[170, 280]} at={2.55} rot={-8} />
+    <Stk id="A_collagen" cx={840} by={1470} box={[200, 200]} at={2.85} rot={7} />
+    <Stk id="A_nutrilegs" cx={850} by={1150} box={[110, 330]} at={3.25} rot={9} />
   </AbsoluteFill>);
 };
 
@@ -172,12 +173,12 @@ const K1b: React.FC = () => {
   const bow = spring({ frame: f - 16, fps, config: { damping: 9, stiffness: 190 } });
   return (<AbsoluteFill style={{ background: `linear-gradient(180deg, ${GREEN} 0%, ${GREEN2} 100%)` }}>
     <Confetti seed={7} n={20} dark />
-    <H size={66} color={WHITE} style={{ position: "absolute", left: 100, right: 135, top: 250, opacity: 0.92 }}>{COPY.k1b}</H>
-    <div style={{ position: "absolute", left: 100, right: 135, top: 345, display: "flex", justifyContent: "center", transform: `scale(${0.5 + 0.5 * sp})`, opacity: sp > 0.02 ? 1 : 0 }}>
+    <H size={62} color={WHITE} style={{ position: "absolute", left: 100, right: 135, top: 436, opacity: 0.92 }}>{COPY.k1b}</H>
+    <div style={{ position: "absolute", left: 100, right: 135, top: 522, display: "flex", justifyContent: "center", transform: `scale(${0.5 + 0.5 * sp})`, opacity: sp > 0.02 ? 1 : 0 }}>
       <Pill style={{ fontSize: 56, padding: "16px 34px", transform: "rotate(-2deg)", whiteSpace: "nowrap" }}>{COPY.k1c}</Pill>
     </div>
     {/* gift photo, wrapped */}
-    <div style={{ position: "absolute", left: 130, top: 560, width: 790, height: 790, transform: `translateY(${(1 - sp) * 500}px) rotate(${2 - (1 - sp) * 8}deg)`,
+    <div style={{ position: "absolute", left: 175, top: 680, width: 700, height: 700, transform: `translateY(${(1 - sp) * 500}px) rotate(${2 - (1 - sp) * 8}deg)`,
       background: WHITE, padding: 16, borderRadius: 26, boxShadow: "0 30px 60px rgba(0,0,0,0.35)" }}>
       <div style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden", borderRadius: 14 }}>
         <Img src={staticFile("bf02v2/img/B_sunrise_photo.jpg")} style={{ position: "absolute", height: "100%", left: "50%", transform: `translateX(-48%) scale(${1.02 + f / 2400})` }} />
@@ -212,7 +213,7 @@ const K1q: React.FC = () => {
         const a = ip(f, [8 + i * 9, 20 + i * 9], [0, 1]);
         return <H key={i} size={i === 1 ? 66 : 54} color={i === 1 ? RED : INK} style={{ opacity: a, transform: `translateY(${(1 - a) * 18}px)`, marginTop: i ? 6 : 0 }}>{l}</H>;
       })}
-      <div style={{ position: "absolute", right: 6, top: -70, fontSize: 96, transform: `rotate(12deg) scale(${spring({ frame: f - 40, fps, config: { damping: 8, stiffness: 200 } })})` }}>{W(COPY.k1q, 11)}</div>
+      <div style={{ position: "absolute", right: 40, top: -70, fontSize: 90, transform: `rotate(12deg) scale(${spring({ frame: f - 40, fps, config: { damping: 8, stiffness: 200 } })})` }}>{W(COPY.k1q, 11)}</div>
     </div>
   </AbsoluteFill>);
 };
@@ -241,13 +242,13 @@ const K2b: React.FC = () => {
     return <div style={{ position: "absolute", left: cx - 125, top: y - 22, width: 250, height: 44, borderRadius: "50%", background: `radial-gradient(closest-side, ${LEAF}, ${GREEN})`, transform: `scaleX(${s})`, opacity: 0.95 }} />;
   };
   const grid: [string, number, number, [number, number], number, number][] = [
-    ["A_q10", 250, 990, [210, 330], 0.15, -3], ["A_slimis", 540, 990, [260, 290], 0.40, 2], ["A_collagen", 830, 990, [250, 270], 0.65, 3],
-    ["A_microshapper", 250, 1410, [250, 260], 0.95, -2], ["A_magnesium", 540, 1410, [270, 230], 1.25, 2], ["A_nutrilegs", 830, 1410, [120, 340], 1.55, 4]];
+    ["A_q10", 250, 1075, [190, 290], 0.15, -3], ["A_slimis", 540, 1075, [250, 260], 0.40, 2], ["A_collagen", 830, 1075, [240, 250], 0.65, 3],
+    ["A_microshapper", 250, 1450, [240, 240], 0.95, -2], ["A_magnesium", 540, 1450, [260, 220], 1.25, 2], ["A_nutrilegs", 830, 1450, [100, 290], 1.55, 4]];
   const disc = spring({ frame: f - S(14.95 - T.k2b), fps, config: { damping: 9, stiffness: 180 } });
   return (<AbsoluteFill style={{ background: `linear-gradient(180deg, ${WHITE} 0%, ${MINT} 100%)` }}>
-    <H size={70} style={{ position: "absolute", left: 100, right: 135, top: 236, opacity: ip(f, [0, 12], [0, 1]) }}>{W(tx, 0, 2)}</H>
-    <H size={70} style={{ position: "absolute", left: 100, right: 135, top: 312, opacity: ip(f, [10, 22], [0, 1]) }}>{W(tx, 2, 4)}</H>
-    <div style={{ position: "absolute", left: 100, right: 135, top: 404, display: "flex", justifyContent: "center", alignItems: "center", gap: 18, opacity: ip(f, [S(2.1), S(2.1) + 12], [0, 1]) }}>
+    <H size={66} style={{ position: "absolute", left: 100, right: 135, top: 432, opacity: ip(f, [0, 12], [0, 1]) }}>{W(tx, 0, 2)}</H>
+    <H size={66} style={{ position: "absolute", left: 100, right: 135, top: 504, opacity: ip(f, [10, 22], [0, 1]) }}>{W(tx, 2, 4)}</H>
+    <div style={{ position: "absolute", left: 100, right: 135, top: 584, display: "flex", justifyContent: "center", alignItems: "center", gap: 18, opacity: ip(f, [S(2.1), S(2.1) + 12], [0, 1]) }}>
       <H size={64} color={GREEN}>{W(tx, 4, 7)}</H>
       <div style={{ transform: `scale(${0.3 + 0.7 * disc}) rotate(-4deg)`, opacity: disc > 0.02 ? 1 : 0 }}><Pill style={{ fontSize: 84, padding: "6px 30px" }}>{W(tx, 7)}</Pill></div>
     </div>
@@ -262,8 +263,8 @@ const K2c: React.FC = () => {
   const tx = W(COPY.k2b, 8);
   return (<AbsoluteFill>
     <Broll src="g_hairo_leaves.mp4" rate={1} startFrom={S(1.4)} dur={dur} zoom={[1.0, 1.05]} />
-    <div style={{ position: "absolute", left: 0, right: 0, top: 0, height: 700, background: "linear-gradient(180deg, rgba(10,79,45,0.55) 0%, rgba(10,79,45,0) 100%)" }} />
-    <div style={{ position: "absolute", left: 100, width: 845, top: 236, transform: `translateY(${(1 - sp) * -80}px)`, opacity: sp > 0.02 ? 1 : 0,
+    <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: 760, background: "linear-gradient(180deg, rgba(10,79,45,0) 0%, rgba(10,79,45,0.6) 100%)" }} />
+    <div style={{ position: "absolute", left: 100, width: 845, top: 1250, transform: `translateY(${(1 - sp) * 24}px)`, opacity: sp > 0.02 ? 1 : 0,
       background: WHITE, borderRadius: 34, padding: "26px 30px 30px", boxShadow: "0 24px 44px rgba(0,0,0,0.30)" }}>
       <H size={60}>{W(tx, 0, 4)}</H>
       <H size={72} color={RED} style={{ marginTop: 6 }}>{W(tx, 4)}</H>
@@ -278,20 +279,20 @@ const K3: React.FC = () => {
   const tiers = [T.tier1, T.tier2, T.tier3].map((x) => x - t0);
   const n = tiers.filter((x) => f >= S(x)).length; // gifts chosen so far
   const gifts: [string, number, number, [number, number], number][] = [
-    ["B_sunrise", 250, 1180, [250, 190], -3], ["B_triple", 540, 1180, [130, 250], 2], ["B_hairo", 830, 1180, [90, 260], 4],
-    ["B_gel", 250, 1450, [140, 240], -2], ["B_sunkissed", 540, 1450, [90, 250], 3], ["B_celuline", 830, 1450, [100, 250], -3]];
+    ["B_sunrise", 250, 1215, [230, 170], -3], ["B_triple", 540, 1215, [110, 200], 2], ["B_hairo", 830, 1215, [70, 200], 4],
+    ["B_gel", 250, 1475, [120, 200], -2], ["B_sunkissed", 540, 1475, [70, 200], 3], ["B_celuline", 830, 1475, [80, 200], -3]];
   const pick = [0, 4, 1]; // the order in which gifts get chosen (1, then 2, then 3)
   return (<AbsoluteFill style={{ background: `linear-gradient(180deg, ${MINT} 0%, ${WHITE} 45%, ${MINT} 100%)` }}>
     <Confetti seed={5} n={12} />
-    <Slam text={W(COPY.k3a, 0, 2)} at={0.05} size={96} color={GREEN} top={232} gap={0.16} />
-    <Slam text={W(COPY.k3a, 2)} at={1.15} size={96} color={RED} top={334} gap={0.16} />
+    <Slam text={W(COPY.k3a, 0, 2)} at={0.05} size={88} color={GREEN} top={430} gap={0.16} />
+    <Slam text={W(COPY.k3a, 2)} at={1.15} size={88} color={RED} top={524} gap={0.16} />
     {COPY.k3t.map((t, i) => {
       const a = spring({ frame: f - S(0.35 + i * 0.12), fps, config: { damping: 14, stiffness: 170 } });
       const on = f >= S(tiers[i]); const hl = spring({ frame: f - S(tiers[i]), fps, config: { damping: 10, stiffness: 200 } });
       const [lhs, rhs] = t.split(" → ");
-      return (<div key={i} style={{ position: "absolute", left: 120, width: 805, top: 462 + i * 122, height: 104, borderRadius: 26, display: "flex", alignItems: "center",
-        background: on ? WHITE : "rgba(255,255,255,0.85)", border: `5px solid ${on ? RED : "rgba(15,107,62,0.35)"}`, boxShadow: on ? "0 16px 30px rgba(227,25,44,0.22)" : "0 8px 16px rgba(30,39,35,0.10)",
-        transform: `translateX(${(1 - a) * 900}px) scale(${1 + (on ? 0.04 * (1 - Math.abs(1 - hl)) + 0.02 : 0)})`, opacity: a > 0.02 ? 1 : 0 }}>
+      return (<div key={i} style={{ position: "absolute", left: 120, width: 805, top: 640 + i * 110, height: 96, borderRadius: 26, display: "flex", alignItems: "center",
+        opacity: Math.min(1, a * 1.4), background: on ? WHITE : "rgba(255,255,255,0.85)", border: `5px solid ${on ? RED : "rgba(15,107,62,0.35)"}`, boxShadow: on ? "0 16px 30px rgba(227,25,44,0.22)" : "0 8px 16px rgba(30,39,35,0.10)",
+        transform: `translateX(${(1 - a) * 60}px) scale(${1 + (on ? 0.04 * (1 - Math.abs(1 - hl)) + 0.02 : 0)})` }}>
         <div style={{ width: 330, height: "100%", borderRadius: "20px 0 0 20px", background: on ? GREEN : "rgba(15,107,62,0.75)", display: "flex", alignItems: "center", justifyContent: "center" }}>
           <H size={56} color={WHITE}>{lhs}</H></div>
         <H size={58} color={GREEN} style={{ width: 90 }}>→</H>
@@ -318,9 +319,9 @@ const K4: React.FC = () => {
       <Img src={staticFile("bf02v2/img/A_q10_marble.jpg")} style={{ position: "absolute", height: "100%", left: "50%", transform: `translateX(-50%) scale(${1.08 + f / 3000})`, filter: "blur(3px) saturate(0.95)" }} />
       <AbsoluteFill style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(234,244,238,0.35) 45%, rgba(15,107,62,0.55) 100%)" }} />
     </AbsoluteFill>
-    <Slam text={W(COPY.k4a, 0, 3)} at={0.1} size={92} color={GREEN} top={250} gap={0.12} />
+    <Slam text={W(COPY.k4a, 0, 3)} at={0.1} size={88} color={GREEN} top={446} gap={0.12} />
     {/* coupon ticket */}
-    <div style={{ position: "absolute", left: 110, width: 825, top: 420, height: 560, transform: `translateX(${(1 - tk) * 1100}px) rotate(${-3 + (1 - tk) * 14}deg)`, opacity: tk > 0.02 ? 1 : 0 }}>
+    <div style={{ position: "absolute", left: 110, width: 825, top: 560, height: 460, transform: `translateX(${(1 - tk) * 1100}px) rotate(${-3 + (1 - tk) * 14}deg)`, opacity: tk > 0.02 ? 1 : 0 }}>
       <div style={{ position: "absolute", inset: 0, borderRadius: 40, background: WHITE, boxShadow: "0 34px 60px rgba(10,79,45,0.35)", overflow: "hidden" }}>
         <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 150, background: `linear-gradient(180deg, ${GREEN}, ${GREEN2})` }} />
         <div style={{ position: "absolute", left: 150, top: 26, bottom: 26, borderLeft: `8px dotted ${MINT}` }} />
@@ -328,12 +329,12 @@ const K4: React.FC = () => {
           <div style={{ width: 54, height: 54, borderRadius: "50%", border: `8px solid ${WHITE}` }} /></div>
         <div style={{ position: "absolute", top: 0, bottom: 0, left: `${shine}%`, width: 120, background: "linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.7), rgba(255,255,255,0))", transform: "skewX(-16deg)" }} />
       </div>
-      {[-1, 1].map((s) => <div key={s} style={{ position: "absolute", left: 128, top: s < 0 ? -22 : 538, width: 44, height: 44, borderRadius: "50%", background: "rgba(220,235,226,1)" }} />)}
+      {[-1, 1].map((s) => <div key={s} style={{ position: "absolute", left: 128, top: s < 0 ? -22 : 438, width: 44, height: 44, borderRadius: "50%", background: "rgba(220,235,226,1)" }} />)}
       <div style={{ position: "absolute", left: 170, right: 20, top: 0, bottom: 0, display: "flex", alignItems: "center", justifyContent: "center", transform: `scale(${0.4 + 0.6 * stamp}) rotate(${-4 + (1 - stamp) * 10}deg)`, opacity: stamp > 0.02 ? 1 : 0 }}>
-        <H size={196} color={RED} style={{ letterSpacing: -6, whiteSpace: "nowrap" }}>{W(COPY.k4a, 3)}</H>
+        <H size={182} color={RED} style={{ letterSpacing: -6, whiteSpace: "nowrap" }}>{W(COPY.k4a, 3)}</H>
       </div>
     </div>
-    <div style={{ position: "absolute", left: 100, width: 845, top: 1060, transform: `translateY(${(1 - kup) * 160}px)`, opacity: kup > 0.02 ? 1 : 0,
+    <div style={{ position: "absolute", left: 100, width: 845, top: 1080, transform: `translateY(${(1 - kup) * 160}px)`, opacity: kup > 0.02 ? 1 : 0,
       background: WHITE, borderRadius: 30, padding: "26px 30px", boxShadow: "0 20px 40px rgba(10,79,45,0.30)", borderTop: `10px solid ${RED}` }}>
       <H size={54} style={{ whiteSpace: "nowrap" }}>{W(COPY.k4b, 0, 4)}</H>
       <H size={54} color={GREEN} style={{ marginTop: 6, whiteSpace: "nowrap" }}>{W(COPY.k4b, 4)}</H>
@@ -348,27 +349,27 @@ const K5: React.FC = () => {
   const pulse = f > S(T.cta - t0) + 30 ? 1 + 0.035 * Math.sin((f - S(T.cta - t0)) / 7) : 1;
   const shA = spring({ frame: f - S(0.5), fps, config: { damping: 14, stiffness: 140 } });
   const shB = spring({ frame: f - S(1.3), fps, config: { damping: 14, stiffness: 140 } });
-  const A: [string, number, [number, number]][] = [["A_q10", 175, [100, 200]], ["A_slimis", 300, [140, 170]], ["A_collagen", 440, [140, 150]], ["A_microshapper", 590, [150, 150]], ["A_magnesium", 750, [170, 130]], ["A_nutrilegs", 880, [60, 210]]];
-  const B: [string, number, [number, number]][] = [["B_sunrise", 190, [170, 130]], ["B_triple", 340, [80, 190]], ["B_hairo", 470, [60, 200]], ["B_gel", 600, [100, 190]], ["B_sunkissed", 730, [62, 200]], ["B_celuline", 860, [70, 200]]];
+  const A: [string, number, [number, number]][] = [["A_q10", 175, [95, 180]], ["A_slimis", 300, [130, 160]], ["A_collagen", 440, [135, 140]], ["A_microshapper", 590, [145, 140]], ["A_magnesium", 750, [165, 120]], ["A_nutrilegs", 880, [55, 185]]];
+  const B: [string, number, [number, number]][] = [["B_sunrise", 190, [165, 120]], ["B_triple", 340, [75, 175]], ["B_hairo", 470, [55, 180]], ["B_gel", 600, [95, 175]], ["B_sunkissed", 730, [58, 180]], ["B_celuline", 860, [65, 180]]];
   return (<AbsoluteFill style={{ background: `linear-gradient(180deg, ${WHITE} 0%, ${MINT} 60%, ${WHITE} 100%)` }}>
     <Confetti seed={9} n={16} />
-    <Slam text={W(COPY.k5a, 0, 2)} at={0.05} size={104} color={RED} top={226} gap={0.12} />
-    <Slam text={W(COPY.k5a, 2, 5)} at={0.4} size={70} color={INK} top={340} gap={0.1} />
-    <Slam text={W(COPY.k5a, 5)} at={0.75} size={70} color={GREEN} top={414} gap={0.1} />
+    <Slam text={W(COPY.k5a, 0, 2)} at={0.05} size={96} color={RED} top={428} gap={0.12} />
+    <Slam text={W(COPY.k5a, 2, 5)} at={0.4} size={62} color={INK} top={532} gap={0.1} />
+    <Slam text={W(COPY.k5a, 5)} at={0.75} size={62} color={GREEN} top={598} gap={0.1} />
     {/* showcase A */}
-    <div style={{ position: "absolute", left: 100, width: 845, top: 560, height: 370, borderRadius: 34, background: `linear-gradient(180deg, ${GREEN} 0%, ${GREEN2} 100%)`, transform: `scale(${0.85 + 0.15 * shA})`, opacity: shA > 0.02 ? 1 : 0, boxShadow: "0 22px 40px rgba(10,79,45,0.30)" }}>
-      <div style={{ position: "absolute", left: 30, right: 30, bottom: 44, height: 18, borderRadius: 9, background: "rgba(255,255,255,0.22)" }} />
+    <div style={{ position: "absolute", left: 100, width: 845, top: 690, height: 260, borderRadius: 34, background: `linear-gradient(180deg, ${GREEN} 0%, ${GREEN2} 100%)`, transform: `scale(${0.85 + 0.15 * shA})`, opacity: shA > 0.02 ? 1 : 0, boxShadow: "0 22px 40px rgba(10,79,45,0.30)" }}>
+      <div style={{ position: "absolute", left: 30, right: 30, bottom: 26, height: 16, borderRadius: 9, background: "rgba(255,255,255,0.22)" }} />
     </div>
-    {A.map(([id, x, b], i) => <Stk key={id} id={id} cx={x} by={890} box={b} at={0.7 + i * 0.08} float={0.5} />)}
+    {A.map(([id, x, b], i) => <Stk key={id} id={id} cx={x} by={922} box={b} at={0.7 + i * 0.08} float={0.5} />)}
     {/* showcase B: gifts */}
-    <div style={{ position: "absolute", left: 100, width: 845, top: 960, height: 350, borderRadius: 34, background: WHITE, border: `6px solid ${RED}`, transform: `scale(${0.85 + 0.15 * shB})`, opacity: shB > 0.02 ? 1 : 0, boxShadow: "0 22px 40px rgba(227,25,44,0.18)", overflow: "hidden" }}>
+    <div style={{ position: "absolute", left: 100, width: 845, top: 970, height: 270, borderRadius: 34, background: WHITE, border: `6px solid ${RED}`, transform: `scale(${0.85 + 0.15 * shB})`, opacity: shB > 0.02 ? 1 : 0, boxShadow: "0 22px 40px rgba(227,25,44,0.18)", overflow: "hidden" }}>
       <div style={{ position: "absolute", left: 0, right: 0, top: "50%", height: 22, background: "rgba(227,25,44,0.12)" }} />
       <div style={{ position: "absolute", top: 0, bottom: 0, left: "50%", width: 22, background: "rgba(227,25,44,0.12)" }} />
     </div>
-    {B.map(([id, x, b], i) => <Stk key={id} id={id} cx={x} by={1280} box={b} at={1.5 + i * 0.08} float={0.5} />)}
+    {B.map(([id, x, b], i) => <Stk key={id} id={id} cx={x} by={1218} box={b} at={1.5 + i * 0.08} float={0.5} />)}
     {/* CTA */}
-    <div style={{ position: "absolute", left: 100, width: 845, top: 1330, display: "flex", justifyContent: "center", transform: `scale(${(0.3 + 0.7 * cta) * pulse})`, opacity: cta > 0.02 ? 1 : 0 }}>
-      <Pill style={{ fontSize: 60, padding: "12px 40px", textAlign: "center", lineHeight: 1.05, width: 800 }}>{COPY.k5b}</Pill>
+    <div style={{ position: "absolute", left: 100, width: 845, top: 1272, display: "flex", justifyContent: "center", transform: `scale(${(0.3 + 0.7 * cta) * pulse})`, opacity: cta > 0.02 ? 1 : 0 }}>
+      <Pill style={{ fontSize: 58, padding: "14px 40px", textAlign: "center", lineHeight: 1.05, width: 800 }}>{COPY.k5b}</Pill>
     </div>
   </AbsoluteFill>);
 };
@@ -377,12 +378,15 @@ const SCENES: [React.FC, number, number][] = [
   [K1a, T.k1a, T.k1b], [K1b, T.k1b, T.k1q], [K1q, T.k1q, T.k2a], [K2a, T.k2a, T.k2b], [K2b, T.k2b, T.k2c], [K2c, T.k2c, T.k3],
   [K3, T.k3, T.k4], [K4, T.k4, T.k5], [K5, T.k5, T.end]];
 
-export const BF02v2: React.FC = () => {
+// QC text-only mode: hides images, video, svg, backgrounds, borders and shadows so only glyphs remain (safe-zone scan)
+const QC_CSS = `html,body{background:#000!important} *{background:transparent!important;box-shadow:none!important;border-color:transparent!important;filter:none!important;-webkit-text-stroke:0!important} img,video,svg{visibility:hidden!important}`;
+export const BF02v2: React.FC<{ qcText?: boolean }> = ({ qcText }) => {
   const [h] = React.useState(() => delayRender("fonts"));
   React.useEffect(() => { fontsReady.then(() => continueRender(h)); }, [h]);
   const f = useCurrentFrame();
   const fadeOut = ip(f, [S(T.end) - 20, S(T.end)], [0, 1], (x) => x);
   return (<AbsoluteFill style={{ background: WHITE }}>
+    {qcText ? <style>{QC_CSS}</style> : null}
     {SCENES.map(([C, a, b], i) => <Sequence key={i} from={S(a)} durationInFrames={S(b) - S(a)}><C /></Sequence>)}
     {SCENES.slice(1).map(([, a], i) => <Wipe key={i} at={a} />)}
     <AbsoluteFill style={{ background: WHITE, opacity: fadeOut * 0 }} />

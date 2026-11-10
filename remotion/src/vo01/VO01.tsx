@@ -168,18 +168,66 @@ const Offer: React.FC<{ a: number; b: number; y: number; main: React.ReactNode; 
 };
 const G = (t: string) => <span style={{ color: APRICOT }}>{t}</span>;
 
-export const VO01: React.FC<{ audio?: string; qcText?: boolean }> = ({ audio, qcText }) => {
+// ---------------- HOOK VARIANTS (hook test, 10 Nov 2026) ----------------
+// Only the opening changes: new hook VO, new opening B-roll (Canva Elements free stock) and opening captions.
+// From the master time `from` on, everything is the untouched Hook A master, shifted by (cut - from).
+type HookSpec = { cut: number; from: number; shots: Shot[]; subs: Sub[]; tiles: { t: string; at: number; kind: "cream" | "apricot" | "ink" | "serif"; rot: number; size: number }[] };
+export const HOOKS: Record<"B" | "C", HookSpec> = {
+  B: { cut: 4.43, from: 3.70,
+    shots: [{ src: "CB1", off: 0.0, from: 0, to: 2.62, z: [1.0, 1.07] }, { src: "CB2", off: 0.1, from: 2.62, to: 4.43, z: [1.06, 1.0] }],
+    subs: [{ t: "Zašto nam je lakše da kupimo novu rutinu", a: 0.2, b: 2.62, y: LOW }, { t: "nego da je stvarno pratimo?", a: 2.62, b: 4.43, y: LOW }],
+    tiles: [{ t: "KUPIMO RUTINU…", at: 1.38, kind: "apricot", rot: -2.5, size: 80 }, { t: "ALI DA LI JE PRATIMO?", at: 2.62, kind: "ink", rot: 1.5, size: 74 }] },
+  C: { cut: 4.47, from: 6.36,
+    shots: [{ src: "CC1", off: 0.2, from: 0, to: 2.3, z: [1.0, 1.04] }, { src: "CC2", off: 0.5, from: 2.3, to: 4.47, z: [1.0, 1.04] }],
+    subs: [{ t: "Ja sam odlična u počinjanju.", a: 0.1, b: 2.3, y: LOW }, { t: "Malo slabija u nastavljanju.", a: 2.3, b: 4.47, y: LOW }],
+    tiles: [{ t: "ODLIČNA U POČINJANJU…", at: 0.55, kind: "cream", rot: 0, size: 58 }, { t: "SLABIJA U NASTAVLJANJU 😅", at: 2.5, kind: "serif", rot: 0, size: 54 }] },
+};
+export const durFor = (v?: string) => v === "B" || v === "C" ? DUR + HOOKS[v].cut - HOOKS[v].from : DUR;
+
+const HookOpen: React.FC<{ h: HookSpec; playful: boolean }> = ({ h, playful }) => {
+  const f = useCurrentFrame(); const { fps } = useVideoConfig();
+  if (f >= S(h.cut)) return null;
+  return (<AbsoluteFill>
+    <AbsoluteFill style={{ background: INK }}>
+      {h.shots.map((c, i) => { const a = S(c.from), d = S(c.to) - a; const z = c.z ?? [1.0, 1.03];
+        return (<Sequence key={i} from={a} durationInFrames={d}><AbsoluteFill style={{ overflow: "hidden" }}>
+          <OffthreadVideo src={staticFile(`vo01/${c.src}.mp4`)} muted startFrom={S(c.off)} style={{ width: "100%", height: "100%", objectFit: "cover", filter: "saturate(1.04) contrast(1.03)",
+            transform: `scale(${ip(f - a, [0, d], z)})` }} />
+        </AbsoluteFill></Sequence>); })}
+      <AbsoluteFill style={{ background: "linear-gradient(180deg, rgba(255,214,160,0.06), rgba(255,214,160,0) 40%, rgba(20,14,8,0.10) 100%)" }} />
+    </AbsoluteFill>
+    <div style={{ position: "absolute", left: 100, width: 880, top: 470, textAlign: "center" }}>
+      {h.tiles.map((t, i) => { const k = spring({ frame: f - S(t.at), fps, config: playful ? { damping: 11, stiffness: 190 } : { damping: 20, stiffness: 150 } });
+        const bg = t.kind === "apricot" ? APRICOT : t.kind === "ink" ? INK : t.kind === "serif" ? APRICOT : "rgba(255,248,238,0.96)";
+        const col = t.kind === "ink" ? CREAM : INK;
+        return (<React.Fragment key={i}><div style={{ display: "inline-block", marginTop: i ? 16 : 0, opacity: Math.min(1, k * 1.6),
+          transform: `translateY(${(1 - Math.min(1, k)) * 18}px) rotate(${t.rot}deg) scale(${playful ? 0.85 + 0.15 * k : 1})` }}>
+          <span style={boxStyle(bg, col, t.size, t.kind === "serif" ? SERIF : SANS)}>{t.t}</span></div><br /></React.Fragment>); })}
+    </div>
+    {h.subs.map((x, i) => <Subtitle key={i} s={x} />)}
+  </AbsoluteFill>);
+};
+
+export const VO01: React.FC<{ audio?: string; qcText?: boolean; variant?: "A" | "B" | "C" }> = ({ audio, qcText, variant = "A" }) => {
   const [h] = React.useState(() => delayRender("fonts"));
   React.useEffect(() => { fontsReady.then(() => continueRender(h)); }, [h]);
+  const hk = variant === "B" || variant === "C" ? HOOKS[variant] : null;
+  const from = hk ? hk.from : 0, shift = hk ? hk.cut - hk.from : 0;
   return (<AbsoluteFill style={{ background: qcText ? "#000" : INK }}>
-    {qcText ? null : <Shots />}
     {audio ? <Audio src={staticFile(audio)} /> : null}
-    <Sequence from={0} durationInFrames={S(3.8)}><Hook /></Sequence>
-    {SUBS.map((s, i) => <Subtitle key={i} s={s} />)}
-    <Emphasis a={21.0} b={26.6} y={690} />
-    <Fact a={33.0} b={34.52} y={1250} text="6 vrsta kolagena" />
-    <Fact a={34.52} b={37.1} y={1250} text="Hijaluronska kiselina + vitamin C" size={50} />
-    <Offer a={38.68} b={42.62} y={445} main={<>UZ 2 COLLAGENA — {G("Q10 GRATIS")}</>} sub="Koenzim Q10 na poklon" size={50} />
-    <Offer a={42.62} b={DUR} y={445} main={<>2× COLLAGEN + {G("Q10 GRATIS")}</>} sub="Koenzim Q10 na poklon" size={54} />
+    <Sequence from={S(shift)} durationInFrames={S(DUR)}>
+      <AbsoluteFill>
+        {qcText ? null : <Shots />}
+        {hk ? null : <Sequence from={0} durationInFrames={S(3.8)}><Hook /></Sequence>}
+        {SUBS.filter((x) => x.b > from + 0.05).map((x, i) => <Subtitle key={i} s={x} />)}
+        <Emphasis a={21.0} b={26.6} y={690} />
+        <Fact a={33.0} b={34.52} y={1250} text="6 vrsta kolagena" />
+        <Fact a={34.52} b={37.1} y={1250} text="Hijaluronska kiselina + vitamin C" size={50} />
+        <Offer a={38.68} b={42.62} y={445} main={<>UZ 2 COLLAGENA — {G("Q10 GRATIS")}</>} sub="Koenzim Q10 na poklon" size={50} />
+        <Offer a={42.62} b={DUR} y={445} main={<>2× COLLAGEN + {G("Q10 GRATIS")}</>} sub="Koenzim Q10 na poklon" size={54} />
+      </AbsoluteFill>
+    </Sequence>
+    {hk && !qcText ? <HookOpen h={hk} playful={variant === "B"} /> : null}
+    {hk && qcText ? <AbsoluteFill style={{ background: "#000" }}>{/* text-only QC */}</AbsoluteFill> : null}
   </AbsoluteFill>);
 };

@@ -9,8 +9,10 @@
   },
   "private": true,
   "dependencies": {
+    "@fontsource/cormorant-garamond": "^5.3.0",
     "@fontsource/fraunces": "^5.3.0",
     "@fontsource/manrope": "^5.3.0",
+    "@fontsource/plus-jakarta-sans": "^5.3.0",
     "@remotion/bundler": "4.0.540",
     "@remotion/cli": "4.0.540",
     "@remotion/fonts": "4.0.540",

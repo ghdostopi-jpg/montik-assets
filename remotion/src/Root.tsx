@@ -1,5 +1,6 @@
 import React from "react";
 import { Composition, Folder } from "remotion";
+import { VO01, DUR as VO01_DUR, FPS as VO01_FPS } from "./vo01/VO01";
 import "./lib/brand";
 import "./captions/beauty";
 import { CaptionOptions, OPTION_FRAMES } from "./captions/Director";
@@ -11,6 +12,8 @@ const base = { fps: 30, width: 1080, height: 1920 } as const;
 
 export const RemotionRoot: React.FC = () => (
   <>
+    <Composition id="VO01" component={VO01 as any} fps={VO01_FPS} width={1080} height={1920} durationInFrames={Math.round(VO01_DUR * VO01_FPS)} defaultProps={{ audio: "vo01/VO01_MIX_v1.wav" } as any} />
+    <Composition id="VO01-QC" component={VO01 as any} fps={VO01_FPS} width={1080} height={1920} durationInFrames={Math.round(VO01_DUR * VO01_FPS)} defaultProps={{ qcText: true } as any} />
     <Composition id="ItAd" component={ItAd as any} fps={60} width={1080} height={1920} durationInFrames={60} defaultProps={{ video: "", words: [], keywords: [], yMap: [], hide: [], callouts: [], frames: 60 } as any} calculateMetadata={({ props }: any) => ({ durationInFrames: props.frames })} />
     <Composition id="Showcase" component={Showcase} durationInFrames={SHOWCASE_FRAMES} {...base} />
     <Folder name="Components">

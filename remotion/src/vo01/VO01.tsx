@@ -31,7 +31,7 @@ type Shot = { src: string; off: number; from: number; to: number; rate?: number;
 export const SHOTS: Shot[] = [
   { src: "L5", off: 0.3, from: 0, to: 3.62, z: [1.06, 1.0] },           // hook: wall calendar, back view
   { src: "L6", off: 2.1, from: 3.62, to: 6.38 },                          // same woman, side view
-  { src: "L4", off: 0.6, from: 6.38, to: 8.0 },                          // "nova flašica za vodu" - pouring from a glass bottle
+  { src: "L3", off: 0.4, from: 6.38, to: 8.0 },                          // "nova flašica za vodu" - the water bottle (Rene's pick)                          // "nova flašica za vodu" - pouring from a glass bottle
   { src: "L1", off: 0.0, from: 8.0, to: 9.02 },                          // "novi planer" - writing in a planner
   { src: "L4", off: 4.0, from: 9.02, to: 12.55 },                        // "novi ritual / prvih pet dana"
   { src: "L1", off: 8.6, from: 12.55, to: 14.78 },                       // "običan utorak" - busy desk, papers, phone

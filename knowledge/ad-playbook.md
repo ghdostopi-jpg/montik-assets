@@ -13,7 +13,7 @@ Rules for this file:
 ## 1. What makes ads perform (outside research)
 
 ### Winning ad blueprints (pick one per concept)
-Survival data means the ad ran long, not proven sales. Copy structures, not health claims: every claim still needs EU approval.
+Survival data means the ad ran long, not proven sales.
 - **Real demo (skincare, longest-running, ~293 days avg):** creator states a specific problem → real-time demo on own skin → immediate result → light CTA or testimonial overlay. Youthforia, Naturium, Hey Bud. [Evolut, 2026](https://evolutagency.com/2026-top-beauty-ads-intelligence-report/)
 - **Clinical meets cool (~225 days avg):** claim on screen → expert snippet → product and ingredient callouts → review or before/after → strong CTA last. TULA, Typology, Dr. Dennis Gross. (same source)
 - **Supplement 30 s arc:** hook 0–3 s → problem 3–6 s → product as an easy routine step 6–12 s → proof and result 12–20 s → offer and CTA, final 2–3 s. Supergut, AG1. [Evolut, 500 supplement ads](https://evolutagency.com/we-analyzed-500-top-supplement-ads/)
@@ -69,15 +69,6 @@ Survival data means the ad ran long, not proven sales. Copy structures, not heal
 - Testimonial talking heads work best with overlay captions; proof (reviews, expert quotes, ingredient callouts, timed results) is strongest next to a demo. (same source)
 - Hook frameworks seen in top ads: "I didn't expect this to work…", "I used this for X days…", "What no one tells you about…", "This is my third bottle of…". Use only when the creator actually says it. (same source)
 - Heavy urgency and discount lines correlated with shorter-running ads; demo-first, light-CTA ads ran longest. (same source)
-
-### Rules and policy (EU, Meta, TikTok)
-Not legal advice; check anything risky with the brand's counsel.
-- EU AI Act Art. 50 has applied since 2 Aug 2026: AI image, audio or video that looks authentic must be labelled, even a realistic generic "consumer". Simulated consumers promoting a product don't get the artistic exception. [Gleiss Lutz on the Commission's guidelines, Nov 2026](https://www.gleisslutz.com/en/know-how/update-ai-transparency-advertising-european-commissions-guidelines-ai-act)
-- Label needed: altering body shape or skin colour, face replacement, adding or removing objects in a way that changes meaning, and an AI image that makes a product look better than it is. No label: minor crop or colour tweaks; a real product on an AI background if it doesn't mislead. Synthetic voice-overs may need marking; audio fixes are a grey area. (same source; guidelines are non-binding)
-- Platform AI labels: Meta "AI Info", TikTok AIGC toggle (AI voice-overs and synthetic visuals in sponsored posts; AI-written scripts and captions exempt), YouTube altered-content toggle. [Cinerads, Jul 2026 (vendor)](https://www.cinerads.com/blog/ai-ad-disclosure-requirements)
-- Botanical supplements: until the EU finishes its botanical review, no psychological or behavioural claims, and general wellbeing wording needs an authorised specific claim next to it (with the Art. 28(6) exception). [CJEU C-386/23 Novel Nutriology, 2025](https://www.ippt.eu/items/ippt20250430-cjeu-novel-nutriology)
-- TikTok tightened its Weight Loss and Muscle Gain policy in Jul 2026 (and Weight Management and Body Image in May): read these before any slimming or body-shape supplement ad. [TikTok policy change log](https://ads.tiktok.com/help/article/tiktok-ad-policy-change-log-2026)
-- Watch: the EU Digital Fairness Act proposal (influencer marketing, dark patterns) was expected mid-Nov 2026, no text seen yet. The brand commissioning creator content already carries the duty to make it identifiable as advertising. [Lawgent, Nov 2026](https://lawgent.se/the-digital-fairness-act-arrives-in-november-most-of-what-it-targets-is-already-unlawful/)
 
 ### Remotion and open resources
 - Remotion v4.0.523 (Sep 2026): `blurSlide()` in `@remotion/transitions`, `tear()` in `@remotion/effects`, a basic captions Element, asset transcription in Studio. [Release notes](https://github.com/remotion-dev/remotion/releases/v4.0.523)
@@ -139,7 +130,6 @@ Sourcing
 - Ingredient mechanism as one morphing shape instead of separate cards, using only authorised claim wording.
 - Accumulating cards for proof beats vs. our single pop-up cards.
 - `blurSlide()` as the B-roll transition and `tear()` as a one-off reveal on a before/after or claim beat; compare with current cuts.
-- AI check before export: list any AI voice, AI B-roll or retouching in the project, and label it where the rules above apply. Never use AI to change skin or results in a skincare demo.
 
 ---
 
@@ -150,6 +140,7 @@ Sourcing
 ---
 
 ## Research log
+- 2026-11-10: removed the EU/platform rules section on user request.
 - 2026-11-09: refocused on user request: winning-ad blueprints, animation and text structures, AI animation and Claude editing.
 - 2026-11-09: weekly research. Added Meta/Toluna short-form study, Andromeda Oct 2026 post, EU AI Act Art. 50 ad guidance, CJEU botanical ruling, TikTok health policy updates, Remotion v4.0.523, Elements, Remocn. Digital Fairness Act text not yet available.
 - 2026-11-04: Renata KOLAGEN review notes: breath cuts, reading time for cards, "too empty" fix, end-card audio.

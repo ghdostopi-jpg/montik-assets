@@ -23,6 +23,10 @@ Survival data means the ad ran long, not proven sales.
 - **Length:** in 523 long-running Meta ads, beauty and supplement problem/solution ads ran 30–60 s, and 20–30 s survived worst in every niche. [Brandsearch, updated Nov 2026 (vendor)](https://brandsearch.co/blog/winning-meta-ad-patterns-2026)
 - **Hook type by category:** supplements 52 % authority hooks, founder-led in 67 % of video winners; beauty 38 % pain-point; questions weakest overall (8 %). (same source)
 - **Beauty "Learn More" CTAs ran longer than "Shop Now".** Static winners use three panels: concern, application, result. (same source)
+- **Supplement hooks that survive (1,648 Meta ads, 101 brands, still live at 30 days):** authority anchor 71 %, negative→positive 68 %, payoff promise 65 %; pain-point callout most used but only 53 %, open loop weakest 44 %. Openers: hands using the product 65–70 %, creator talking while holding it 63 %, plain-backdrop talking head 49 %, animated explainer 34 %. [UGC Factory, Oct 2026 (vendor)](https://www.ugcfactory.io/blog/supplement-ugc-ads)
+- **Long-runners named there:** Zest testimonial (gym creator swaps energy drink for capsule, 250+ days), Perelel direct-to-camera perimenopause story (220+), Rho founder explains the tech (220+), Energybits myth-busting hook (200+), Needed authority stat at a podcast mic (175+), DryWater morning routine with no voice-over (150+). (same source)
+- **Beauty first-1.5 s sheet (30 ads decoded by an editor):** 0–1.5 s person, texture or odd frame, no logo; 1.5–6 s product at full frame and sharp for ≥1.2 s; cuts every 1.4–1.8 s, on the beat or on a texture moment (swipe, compact click); expert in by ~4 s with a lower third held ≥2 s; last 2–3 s tie back to the product. Examples: Tatcha texture pour with ASMR sound, Glow Recipe macro of the hero ingredient "as a character", Ilia POV routine with very few cuts. Editor's framework, not measured. [Vidpros, Nov 2026](https://vidpros.com/beauty-ad)
+- **Diagnostic reveal (Paula's Choice, TikTok, Nov 2026):** "POV: we scanned our employee's skin…" → scanner overlay exposes texture and UV damage → personalised routine. Related: The Ordinary opens on clear skin then reveals the product; BYOMA nine creators in one split grid doing the same hack; Rhode faceless three-panel texture routine. Brand posts, not confirmed paid ads. [Lightreel, Nov 2026 (vendor)](https://lightreel.ai/blogs/skincare-brands-on-tiktok)
 
 ### Animation and text structures
 - **Cuts and clutter:** eye tracking on 2,520 views of 42 ads: shorter scenes raised attention, and visual complexity hurt attention with a delay. So cut often, but keep each frame to one idea. Public-service ads, not product ads. [Wals et al., J. Academy of Marketing Science, 2026](https://researchportal.bath.ac.uk/en/publications/the-dynamic-effects-of-visual-complexity-and-scene-cuts-on-viewer/)
@@ -33,14 +37,21 @@ Survival data means the ad ran long, not proven sales.
 - **Voice-locked reveal:** text appears on the vocal cue, one treatment throughout. This is our caption default. (same source)
 - **Openers from top ads:** prop covers product then peels away, reverse-motion drop into the hand, critical comment overlaid then answered, creator talking to themselves across three screens. 63 % of top auction ads have text in frame 1 (Keevx via Segwise). [Segwise (vendor)](https://segwise.ai/blog/anatomy-top-performing-video-ad-frame-by-frame)
 
+- **Caption look vs. survival (supplements):** no captions 77 % and lo-fi captions 77 % still live at 30 days; bold bottom-third 67 %, TikTok-native 66 %, AI auto-captions 51 %, kinetic typography 42 %. Polished, ad-like motion text went with shorter runs. [UGC Factory, Oct 2026 (vendor)](https://www.ugcfactory.io/blog/supplement-ugc-ads)
+- **Caption line length:** two lines max, about 32–42 characters per line. [Promptsrush, Oct 2026](https://promptsrush.com/blog/how-to-edit-videos-with-claude)
+
 ### AI animation and editing with Claude
 - **Claude Motion (Oct 2026, beta):** text, chart, shape and image animation with MP4 export, on Team and Enterprise plans only. No realistic footage or people, so it suits end cards and explainers, not UGC. [Techotick, Nov 2026](https://www.techotick.com/articles/2026/11/how-to-create-a-video-with-claude-motion-and-remotion/)
 - **Motion vs. Remotion:** Motion is one quick export; Remotion gives editable scenes, data-driven copy and repeatable renders, so it stays our route for variants. Official skills: `npx remotion skills add`. (same source)
 - **Prompt pattern:** one detailed first brief (length, style, scenes, mood, brand assets), then 3–4 one-change notes. Drafts often have overlaps or elements leaving the frame. [How-To Geek, Nov 2026](https://www.howtogeek.com/claude-can-create-motion-graphics-now-heres-how-easy-it-is/)
 - **Self-check loop:** render a contact sheet of frames, score it, fix the worst problem, re-render (Rob Sobers, self-reported). Add to our render-and-verify step. [Motion Design News, Nov 2026](https://blog.mean.ceo/motion-design-news-november-2026/)
 - **Morph explainer:** one shape morphing through 8–12 states; useful for a mechanism such as ingredient → skin layer. Anecdotal. (same source)
-- **AI product shots:** no single best model. Veo 3.1 locks first and last frame and takes 3 reference images, good for ending on a packshot; Kling 3.0 up to 15 s; Seedance 2.5 up to 30 s, commercial terms unclear. Sora is shut down. Specs from makers, Oct 2026. [Izoard](https://izoard.be/en/blog/ai-video/ai-video-tools-compared/)
+- **AI product shots:** no single best model. Veo 3.1 locks first and last frame and takes 3 reference images, good for ending on a packshot; Kling 4.0 now 30 s (see below); Seedance 2.5 up to 30 s, commercial terms unclear. Sora is shut down. Specs from makers, Oct 2026. [Izoard](https://izoard.be/en/blog/ai-video/ai-video-tools-compared/)
 - **Toolkit:** MIT list of Claude video skills, including a project template with FFmpeg presets and brand profiles. [Claude-Code-Video-Toolkit](https://github.com/wilwaldon/Claude-Code-Video-Toolkit)
+- **Claude Motion launch details:** announced 8 Oct 2026 with Dashboards; output is editable as code and exports MP4. Claude Design folds into the main app by 14 Dec. [The Decoder, Oct 2026](https://the-decoder.com/claude-can-now-generate-animated-explainer-videos-and-live-data-dashboards-from-text-prompts/)
+- **Transcript rough-cut workflow:** Whisper word timestamps + ffmpeg silence detect → Claude drafts a cut list for approval → re-encode segments (stream copy only cuts on keyframes) → sample scene-change frames to check. Pads 0.15 s before / 0.25 s after; Claude doesn't hear coughs or music, so check audio by ear. [Promptsrush, Oct 2026](https://promptsrush.com/blog/how-to-edit-videos-with-claude)
+- **Kling VIDEO 4.0 (Oct 2026):** up to 30 s, 1080p, up to 10 keyframes (first/middle/last) and 15 inputs, stereo audio: best current fit for consistent product B-roll. FLUX 3 Image (4K, 10 references) and Nano Banana 2.1 (14 refs) for packshots. Check each maker's terms. [Virtuall, Nov 2026 (vendor)](https://virtuall.pro/blog/latest-ai-model-releases)
+- **Skill index:** 180 graded open-source video skills for Claude Code (Remotion, HyperFrames, FFmpeg, captions); licences vary per repo, check LICENSE. [awesome-claude-video-skills](https://github.com/zhuyansen/awesome-claude-video-skills)
 
 ### Metrics to judge a cut (Meta and TikTok, 2026)
 - **Hook rate** = 3-second plays ÷ impressions (TikTok: 2-second views). Meta: under 20 % needs work, 25–35 % competitive, 35 %+ elite. TikTok runs about 5 points higher. [Skaler, 2026 (vendor)](https://skaler.app/blog/hook-rate-benchmarks-2026)
@@ -74,6 +85,7 @@ Survival data means the ad ran long, not proven sales.
 - Remotion v4.0.523 (Sep 2026): `blurSlide()` in `@remotion/transitions`, `tear()` in `@remotion/effects`, a basic captions Element, asset transcription in Studio. [Release notes](https://github.com/remotion-dev/remotion/releases/v4.0.523)
 - Remotion Elements: drop-in catalog inside Studio with caption styles (Rounded, Moving Pill, Popping Word, Word Highlight), text effects, overlays. Licence not stated on the page, check before use. [Elements, Nov 2026](https://convert.remotion.dev/elements)
 - Remocn: MIT copy-paste Remotion components (transitions, backgrounds, scenes, kinetic titles), installed with `npx shadcn add`. [Remocn, Nov 2026](https://awesome.ecosyste.ms/projects/github.com%2FRemocn%2Fremocn)
+- Remotion v4.0.537–543 (19 Oct–11 Nov 2026): effects `magnify()` (zoom a product detail), `lensBlur()`, `pageTurn()`, `shatter()`, `curves()`, wipe/burn/weather; `cube()` transition now free; `parseVtt()` in `@remotion/captions`; Studio audio meters, "Render and replace", OpenTimelineIO import; `proResBitsPerMacroblock` to shrink ProRes exports; `remotion elements use` CLI. Licences now bought on remotion.dev (remotion.pro retired). [Releases](https://github.com/remotion-dev/remotion/releases)
 
 ---
 
@@ -120,6 +132,10 @@ Sourcing
 ---
 
 ## 3. Ideas to test next
+- Collagen "authority anchor" opener: frame 0 creator's face holding the jar, first line is a credential or study fact, lo-fi bottom-third captions (no kinetic type), hands-using-product B-roll by 2 s.
+- Product detail zoom with Remotion `magnify()` on the label/ingredient for 1.2–1.5 s instead of a ring callout; works on handheld shots where locked rings fail.
+- Set `proResBitsPerMacroblock` lower on the EXPORT ProRes parts to stay under 100 MB with fewer splits; compare quality in a frame grab.
+- Lo-fi caption variant (plain white, bottom third, ≤2 lines of ~35 chars) vs. our caption identity, same body, judge by hold rate.
 - Hook variants per ad: 3 different opening frames on the same body (person + contradiction, person + number, demo-first).
 - Demo-first variant: open on the product in use, voice from the talking head.
 - A light-CTA end card vs. the current button end card.
@@ -134,12 +150,14 @@ Sourcing
 ---
 
 ## Superseded
+- "Kling 3.0 up to 15 s" (AI product shots): Kling VIDEO 4.0 does 30 s with up to 10 keyframes (Nov 2026).
 - "Meta reads each ad's content" and "near-duplicates get grouped" (section 1, Segwise): treat as practitioner inference. Meta's Oct 2026 post describes LLM features only on the user side and doesn't discuss creative diversity. Distinct concepts remain the working advice.
 - "8–12 concepts per campaign": a vendor rule of thumb. The same vendor now suggests 3–6 distinct concepts per ad set; fit the number to budget (Nov 2026).
 
 ---
 
 ## Research log
+- 2026-11-16: weekly research. Added UGC Factory 1,648 supplement-ad hook/caption survival data, Vidpros beauty first-1.5 s timing, Nov 2026 skincare TikTok formats, Claude Motion launch details, transcript rough-cut workflow, Kling 4.0/FLUX 3, Remotion v4.0.537–543.
 - 2026-11-10: removed the EU/platform rules section on user request.
 - 2026-11-09: refocused on user request: winning-ad blueprints, animation and text structures, AI animation and Claude editing.
 - 2026-11-09: weekly research. Added Meta/Toluna short-form study, Andromeda Oct 2026 post, EU AI Act Art. 50 ad guidance, CJEU botanical ruling, TikTok health policy updates, Remotion v4.0.523, Elements, Remocn. Digital Fairness Act text not yet available.

@@ -27,6 +27,8 @@ Survival data means the ad ran long, not proven sales.
 - **Long-runners named there:** Zest testimonial (gym creator swaps energy drink for capsule, 250+ days), Perelel direct-to-camera perimenopause story (220+), Rho founder explains the tech (220+), Energybits myth-busting hook (200+), Needed authority stat at a podcast mic (175+), DryWater morning routine with no voice-over (150+). (same source)
 - **Beauty first-1.5 s sheet (30 ads decoded by an editor):** 0–1.5 s person, texture or odd frame, no logo; 1.5–6 s product at full frame and sharp for ≥1.2 s; cuts every 1.4–1.8 s, on the beat or on a texture moment (swipe, compact click); expert in by ~4 s with a lower third held ≥2 s; last 2–3 s tie back to the product. Examples: Tatcha texture pour with ASMR sound, Glow Recipe macro of the hero ingredient "as a character", Ilia POV routine with very few cuts. Editor's framework, not measured. [Vidpros, Nov 2026](https://vidpros.com/beauty-ad)
 - **Diagnostic reveal (Paula's Choice, TikTok, Nov 2026):** "POV: we scanned our employee's skin…" → scanner overlay exposes texture and UV damage → personalised routine. Related: The Ordinary opens on clear skin then reveals the product; BYOMA nine creators in one split grid doing the same hack; Rhode faceless three-panel texture routine. Brand posts, not confirmed paid ads. [Lightreel, Nov 2026 (vendor)](https://lightreel.ai/blogs/skincare-brands-on-tiktok)
+- **Beauty formats breaking out (1,276 posts, 511 accounts, week to 22 Nov 2026):** result-first then step one ("[look] in [time], here's the end result, now watch how", 40 accounts, median 12× usual reach); flash the result 1–3 s before step 1; red ❌ wrong way → green ✅ fix; expert stitches a viral clip to correct it; quote the doubter → show proof (36×); unbroken macro shot of the instant result (68×); cut to the reveal on the beat drop; pop-up product cutouts made to be screenshotted (18×). Organic posts, vendor-measured. [Volume, Nov 2026 (vendor)](https://tryvolume.app/working/beauty)
+- **Collagen ad library (1,041 Meta ads, 22 Nov 2026):** median run only 12 days; long-runners Nature's Bounty 244 days, an Astrid Zeegen collagen ad 326 days, Sports Research 109, HUM 90. 30 % put a number in the first line, 3 % open with a question; video is 73 % of ads. [Sprites, Nov 2026 (vendor)](https://www.sprites.ai/collagen-video-ads)
 
 ### Animation and text structures
 - **Cuts and clutter:** eye tracking on 2,520 views of 42 ads: shorter scenes raised attention, and visual complexity hurt attention with a delay. So cut often, but keep each frame to one idea. Public-service ads, not product ads. [Wals et al., J. Academy of Marketing Science, 2026](https://researchportal.bath.ac.uk/en/publications/the-dynamic-effects-of-visual-complexity-and-scene-cuts-on-viewer/)
@@ -39,6 +41,7 @@ Survival data means the ad ran long, not proven sales.
 
 - **Caption look vs. survival (supplements):** no captions 77 % and lo-fi captions 77 % still live at 30 days; bold bottom-third 67 %, TikTok-native 66 %, AI auto-captions 51 %, kinetic typography 42 %. Polished, ad-like motion text went with shorter runs. [UGC Factory, Oct 2026 (vendor)](https://www.ugcfactory.io/blog/supplement-ugc-ads)
 - **Caption line length:** two lines max, about 32–42 characters per line. [Promptsrush, Oct 2026](https://promptsrush.com/blog/how-to-edit-videos-with-claude)
+- **Copyable-hands framing:** routine filmed from behind or over the shoulder so viewers can copy the hand moves (median 40× in beauty this week); pairs with ❌/✅ stamps locked to the cut between wrong and right. [Volume, Nov 2026 (vendor)](https://tryvolume.app/working/beauty)
 
 ### AI animation and editing with Claude
 - **Claude Motion (Oct 2026, beta):** text, chart, shape and image animation with MP4 export, on Team and Enterprise plans only. No realistic footage or people, so it suits end cards and explainers, not UGC. [Techotick, Nov 2026](https://www.techotick.com/articles/2026/11/how-to-create-a-video-with-claude-motion-and-remotion/)
@@ -52,6 +55,9 @@ Survival data means the ad ran long, not proven sales.
 - **Transcript rough-cut workflow:** Whisper word timestamps + ffmpeg silence detect → Claude drafts a cut list for approval → re-encode segments (stream copy only cuts on keyframes) → sample scene-change frames to check. Pads 0.15 s before / 0.25 s after; Claude doesn't hear coughs or music, so check audio by ear. [Promptsrush, Oct 2026](https://promptsrush.com/blog/how-to-edit-videos-with-claude)
 - **Kling VIDEO 4.0 (Oct 2026):** up to 30 s, 1080p, up to 10 keyframes (first/middle/last) and 15 inputs, stereo audio: best current fit for consistent product B-roll. FLUX 3 Image (4K, 10 references) and Nano Banana 2.1 (14 refs) for packshots. Check each maker's terms. [Virtuall, Nov 2026 (vendor)](https://virtuall.pro/blog/latest-ai-model-releases)
 - **Skill index:** 180 graded open-source video skills for Claude Code (Remotion, HyperFrames, FFmpeg, captions); licences vary per repo, check LICENSE. [awesome-claude-video-skills](https://github.com/zhuyansen/awesome-claude-video-skills)
+- **Motion-graphics prompt spec (16-prompt test, Opus 5.5 in Claude Code, 10/16 right on first render):** give canvas size, exact seconds, hex colours and quoted on-screen text; ask for transparent overlays and test them over bright footage; use fixed pixel gaps between outlined words; sample early, middle and settled frames (catches clipped descenders). [ChatCut, Nov 2026 (vendor)](https://chatcut.io/blog/claude-motion-graphics)
+- **More open Claude video skills (licences as listed, check repo):** MIT `browser-use/video-use`, `elevenlabs/skills`, `fal-ai-community/skills`, `digitalsamba/claude-code-video-toolkit`, `EveryInc/product-launch-video`; Apache-2.0 `video-shotcraft`. Avoid `appariciojunior/video-editor-skills` for client work (CC BY-NC). [ChatCut list, Nov 2026 (vendor)](https://chatcut.io/blog/claude-video-skills-and-tools)
+- **Open models for ad assets (Nov 2026):** LongCat Video Avatar 1.6 (Meituan, MIT weights): one photo + voice track → lip-synced talker over 10 min, useful for cartoon/spokesperson tests; MOSS AnyPaint (Apache-2.0) outpaints packshots to 9:16. MiniMax H3-Image / HyperFlow H3 licence excludes EU use, so skip. [Kombitz roundups, 14 and 21 Nov 2026](https://www.kombitz.com/2026/11/21/ai-image-video-model-news-roundup-november-21-2026/)
 
 ### Metrics to judge a cut (Meta and TikTok, 2026)
 - **Hook rate** = 3-second plays ÷ impressions (TikTok: 2-second views). Meta: under 20 % needs work, 25–35 % competitive, 35 %+ elite. TikTok runs about 5 points higher. [Skaler, 2026 (vendor)](https://skaler.app/blog/hook-rate-benchmarks-2026)
@@ -86,6 +92,7 @@ Survival data means the ad ran long, not proven sales.
 - Remotion Elements: drop-in catalog inside Studio with caption styles (Rounded, Moving Pill, Popping Word, Word Highlight), text effects, overlays. Licence not stated on the page, check before use. [Elements, Nov 2026](https://convert.remotion.dev/elements)
 - Remocn: MIT copy-paste Remotion components (transitions, backgrounds, scenes, kinetic titles), installed with `npx shadcn add`. [Remocn, Nov 2026](https://awesome.ecosyste.ms/projects/github.com%2FRemocn%2Fremocn)
 - Remotion v4.0.537–543 (19 Oct–11 Nov 2026): effects `magnify()` (zoom a product detail), `lensBlur()`, `pageTurn()`, `shatter()`, `curves()`, wipe/burn/weather; `cube()` transition now free; `parseVtt()` in `@remotion/captions`; Studio audio meters, "Render and replace", OpenTimelineIO import; `proResBitsPerMacroblock` to shrink ProRes exports; `remotion elements use` CLI. Licences now bought on remotion.dev (remotion.pro retired). [Releases](https://github.com/remotion-dev/remotion/releases)
+- Remotion blog, 11 Nov 2026: Agent Skills are now "the default way" to make Remotion videos, and Studio is fully interactive (select, drag, trim, crop items on the canvas), so small layout fixes can be done by hand instead of a re-prompt. Release notes after v4.0.543 not checked this week. [Remotion blog](https://www.remotion.dev/blog)
 
 ---
 
@@ -132,6 +139,10 @@ Sourcing
 ---
 
 ## 3. Ideas to test next
+- Result-first hook (Volume format): 0–1.5 s macro of the finished glow/texture with the creator's voice already talking, hard cut on a word to bare skin "step one". Montik: `make_slot` on the hook, add this as a take next to the face-first take; keep face visible by 1.5 s.
+- ❌/✅ mistake-fix beat: Remotion stamp component (scale 0→1.15→1 over 8 frames, 2-frame shake on ❌), red on the wrong-way shot, green on the fix, each stamp starting on the cut and held ≥1.2 s.
+- Screenshot-able product cutout: `remove_background` on the packshot, pop it in on the spoken product name with 2–3 ingredient labels around it, held 2.5 s still (no drift) so it can be screenshotted.
+- Unbroken macro proof: replace the 3 fast proof cuts with one 3–4 s uncut macro of the product on skin; judge by hold rate.
 - Collagen "authority anchor" opener: frame 0 creator's face holding the jar, first line is a credential or study fact, lo-fi bottom-third captions (no kinetic type), hands-using-product B-roll by 2 s.
 - Product detail zoom with Remotion `magnify()` on the label/ingredient for 1.2–1.5 s instead of a ring callout; works on handheld shots where locked rings fail.
 - Set `proResBitsPerMacroblock` lower on the EXPORT ProRes parts to stay under 100 MB with fewer splits; compare quality in a frame grab.
@@ -150,6 +161,7 @@ Sourcing
 ---
 
 ## Superseded
+- "FLUX 3 Image (4K, 10 references)" as available (AI animation section, Virtuall): Kombitz on 21 Nov 2026 lists FLUX 3 as still unreleased; use Nano Banana 2.1 for reference packshots until confirmed.
 - "Kling 3.0 up to 15 s" (AI product shots): Kling VIDEO 4.0 does 30 s with up to 10 keyframes (Nov 2026).
 - "Meta reads each ad's content" and "near-duplicates get grouped" (section 1, Segwise): treat as practitioner inference. Meta's Oct 2026 post describes LLM features only on the user side and doesn't discuss creative diversity. Distinct concepts remain the working advice.
 - "8–12 concepts per campaign": a vendor rule of thumb. The same vendor now suggests 3–6 distinct concepts per ad set; fit the number to budget (Nov 2026).
@@ -157,6 +169,7 @@ Sourcing
 ---
 
 ## Research log
+- 2026-11-23: weekly research. Added Volume beauty breakout formats (result-first, ❌/✅, doubter quote, macro proof, cutouts), Sprites collagen run-time data, ChatCut motion prompt spec and skill licences, Remotion interactive Studio post, LongCat Avatar / MOSS AnyPaint; FLUX 3 moved to Superseded. No fresh frame-timed teardowns of named paid ads found this week.
 - 2026-11-16: weekly research. Added UGC Factory 1,648 supplement-ad hook/caption survival data, Vidpros beauty first-1.5 s timing, Nov 2026 skincare TikTok formats, Claude Motion launch details, transcript rough-cut workflow, Kling 4.0/FLUX 3, Remotion v4.0.537–543.
 - 2026-11-10: removed the EU/platform rules section on user request.
 - 2026-11-09: refocused on user request: winning-ad blueprints, animation and text structures, AI animation and Claude editing.
